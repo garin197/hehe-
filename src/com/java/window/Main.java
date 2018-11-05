@@ -130,6 +130,7 @@ public class Main extends JFrame {
 		menuBar.add(menu_rentback);
 		
 		mi_car_rent = new JMenuItem("\u79DF\u8F66");
+		mi_car_rent.setIcon(new ImageIcon(Main.class.getResource("/images/\u79DF\u8F661.png")));
 		mi_car_rent.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		menu_rentback.add(mi_car_rent);
 		
