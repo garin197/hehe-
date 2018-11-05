@@ -2,12 +2,19 @@ package com.java.window;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.sun.prism.paint.Color;
+
 import java.awt.Panel;
 import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.awt.Canvas;
 
 public class loginFrm extends JFrame {
@@ -37,6 +44,7 @@ public class loginFrm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Garin\\Desktop\\hehe\u79DF\u8F66\\image\\app\\car_48px_1132259_easyicon.net.ico"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 592, 390);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -45,5 +53,6 @@ public class loginFrm extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 576, 351);
 		contentPane.add(panel);
+		panel.setLayout(null);
 	}
 }

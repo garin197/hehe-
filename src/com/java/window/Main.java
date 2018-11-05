@@ -142,6 +142,7 @@ public class Main extends JFrame {
 		menuBar.add(menu_info_query);
 		
 		mi_car_info = new JMenuItem("\u8F66\u578B\u67E5\u8BE2");
+		mi_car_info.setIcon(new ImageIcon("E:\\ChromeDownload\\Add_16.382252559727px_1130653_easyicon.net.png"));
 		mi_car_info.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		menu_info_query.add(mi_car_info);
 		
