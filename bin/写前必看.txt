@@ -1,0 +1,6 @@
+数据库：mysql
+用户：root
+密码：root
+数据库名：db_heherentcar
+表（暂定）：t_login
+自己设定好
