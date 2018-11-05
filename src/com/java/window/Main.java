@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class Main extends JFrame {
 
@@ -89,6 +90,7 @@ public class Main extends JFrame {
 		menu_info_manage.add(menu_car_manage);
 		//车型管理
 		mi_car_add = new JMenuItem("\u8F66\u578B\u589E\u52A0");
+		mi_car_add.setIcon(new ImageIcon("C:\\Users\\Garin\\Desktop\\hehe\u79DF\u8F66\\image\\16x\\add_car.ico"));
 		mi_car_add.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		mi_car_add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
