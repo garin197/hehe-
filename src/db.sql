@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 05/11/2018 23:31:30
+ Date: 05/11/2018 23:40:46
 */
 
 SET NAMES utf8mb4;
@@ -26,13 +26,11 @@ CREATE TABLE `t_login`  (
   `userName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `userPassword` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_login
 -- ----------------------------
-BEGIN;
-INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'sdfs', 'fsafsa'), (3, 'fs', 'dfsfsf'), (4, 'fsdaf', 'sdfasf2');
-COMMIT;
+INSERT INTO `t_login` VALUES (1, 'rjl', '123456');
 
 SET FOREIGN_KEY_CHECKS = 1;
