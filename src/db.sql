@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 05/11/2018 23:40:46
+ Date: 06/11/2018 13:51:00
 */
 
 SET NAMES utf8mb4;
@@ -32,5 +32,7 @@ CREATE TABLE `t_login`  (
 -- Records of t_login
 -- ----------------------------
 INSERT INTO `t_login` VALUES (1, 'rjl', '123456');
+INSERT INTO `t_login` VALUES (2, 'lrh', '123456');
+INSERT INTO `t_login` VALUES (3, 'xx', '123456');
 
 SET FOREIGN_KEY_CHECKS = 1;
