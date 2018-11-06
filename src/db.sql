@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 06/11/2018 17:10:11
+ Date: 06/11/2018 22:20:03
 */
 
 SET NAMES utf8mb4;
@@ -69,7 +69,7 @@ CREATE TABLE `t_login`  (
 -- Records of t_login
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456');
+INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456'), (4, 'admin', 'admin');
 COMMIT;
 
 -- ----------------------------
