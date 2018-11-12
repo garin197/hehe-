@@ -1,21 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Local instance MySQL
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50560
- Source Host           : 127.0.0.1:3306
+ Source Server Version : 50720
+ Source Host           : localhost:3306
  Source Schema         : db_heherentcar
 
  Target Server Type    : MySQL
- Target Server Version : 50560
+ Target Server Version : 50720
  File Encoding         : 65001
 
-<<<<<<< HEAD
- Date: 12/11/2018 10:53:02
-=======
- Date: 06/11/2018 22:20:03
->>>>>>> refs/remotes/origin/master
+ Date: 12/11/2018 22:44:29
 */
 
 SET NAMES utf8mb4;
@@ -28,7 +24,7 @@ DROP TABLE IF EXISTS `t_car`;
 CREATE TABLE `t_car`  (
   `carID` int(11) NOT NULL,
   `rent` double(255, 0) NOT NULL COMMENT '1日为计算单位，eg：100/日',
-  `carName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `carName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `brank` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '车辆状况，eg：几年车等描述',
   `type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '几座的、“小巴、5座、7座“',
   `carInfo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -49,7 +45,7 @@ COMMIT;
 DROP TABLE IF EXISTS `t_contract`;
 CREATE TABLE `t_contract`  (
   `carID` int(11) NOT NULL COMMENT '车辆编号',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `license` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '驾驶证',
   `time` date NOT NULL COMMENT '时间',
   `rent` double(255, 0) UNSIGNED NOT NULL COMMENT '租金',
@@ -73,11 +69,7 @@ CREATE TABLE `t_login`  (
 -- Records of t_login
 -- ----------------------------
 BEGIN;
-<<<<<<< HEAD
-INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456'), (4, 'admin', 'admin'), (5, 'jkhj', '叫姐姐');
-=======
 INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456'), (4, 'admin', 'admin');
->>>>>>> refs/remotes/origin/master
 COMMIT;
 
 -- ----------------------------
@@ -86,14 +78,21 @@ COMMIT;
 DROP TABLE IF EXISTS `t_users`;
 CREATE TABLE `t_users`  (
   `userID` int(255) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `license` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '驾驶证',
-  `IDCard` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '身份证',
+  `IDCard` varchar(225) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '身份证',
   `carID` int(11) NOT NULL COMMENT '车辆编号',
   PRIMARY KEY (`userID`) USING BTREE,
   INDEX `carID_user`(`carID`) USING BTREE,
   CONSTRAINT `carID_user` FOREIGN KEY (`carID`) REFERENCES `t_car` (`carID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+
+-- ----------------------------
+-- Records of t_users
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_users` VALUES (1, 'tony', '110', 'xx123456', '1234567891234567', 1);
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
