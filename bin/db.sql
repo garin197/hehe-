@@ -12,6 +12,9 @@
  File Encoding         : 65001
 
  Date: 12/11/2018 10:53:02
+=======
+ Date: 06/11/2018 22:20:03
+>>>>>>> refs/remotes/origin/master
 */
 
 SET NAMES utf8mb4;
@@ -69,7 +72,9 @@ CREATE TABLE `t_login`  (
 -- Records of t_login
 -- ----------------------------
 BEGIN;
+<<<<<<< HEAD
 INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456'), (4, 'admin', 'admin'), (5, 'jkhj', '叫姐姐');
+=======
 COMMIT;
 
 -- ----------------------------
