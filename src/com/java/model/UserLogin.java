@@ -1,7 +1,7 @@
 package com.java.model;
 
 /**
- * 
+ * µÇÂ½Ä£ĞÍÀà
  * @author Garin
  *
  */

@@ -13,6 +13,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Main extends JFrame {
 
@@ -54,6 +61,15 @@ public class Main extends JFrame {
 	private JMenuItem mi_car_back;
 	private JMenuItem mi_car_info;
 	private JMenuItem mi_client_info;
+	private JMenuItem mi_orders_info;
+	private JPanel panel_userquery;
+	private JLabel label;
+	private JTextField tf_userquery_input;
+	private JLabel lblNewLabel_1;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JPanel panel_welcome;
+	private JLabel label_3;
 	
 	
 	/**
@@ -68,12 +84,13 @@ public class Main extends JFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.WHITE);
+		frame.getContentPane().setForeground(Color.BLACK);
 		frame.setFont(new Font("Dialog", Font.BOLD, 16));
 		frame.setTitle("\u79DF\u8F66\u7CFB\u7EDF");
-		frame.setBounds(100, 100, 479, 334);
+		frame.setBounds(100, 100, 748, 517);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
-		
+		this.setLocationRelativeTo(null);
 		
 		menuBar = new JMenuBar();
 		menuBar.setBackground(Color.WHITE);
@@ -147,14 +164,107 @@ public class Main extends JFrame {
 		mi_car_info.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		menu_info_query.add(mi_car_info);
 		
+		/**
+		 * 信息查询 -》客户查询
+		 */
 		mi_client_info= new JMenuItem("\u5BA2\u6237\u67E5\u8BE2");
+		mi_client_info.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_welcome.setVisible(false);
+				panel_userquery.setVisible(true);
+			}
+		});
 		mi_client_info.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		menu_info_query.add(mi_client_info);
+		
+		mi_orders_info = new JMenuItem("\u67E5\u770B\u6240\u6709\u8BA2\u5355");
+		mi_orders_info.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
+		menu_info_query.add(mi_orders_info);
+		frame.getContentPane().setLayout(null);
+		/**
+		 * 客户查询  -》 重置按钮
+		 */
+		
+		panel_userquery = new JPanel();
+		panel_userquery.setBackground(Color.WHITE);
+		panel_userquery.setBounds(157, 181, 416, 263);
+		frame.getContentPane().add(panel_userquery);
+		panel_userquery.setLayout(null);
+		
+		label = new JLabel("");
+		label.setBounds(10, 0, 149, 257);
+		label.setIcon(new ImageIcon(Main.class.getResource("/image/app/123.png")));
+		panel_userquery.add(label);
+		panel_userquery.setVisible(false);
+		
+		tf_userquery_input = new JTextField();
+		tf_userquery_input.setBounds(169, 96, 225, 27);
+		panel_userquery.add(tf_userquery_input);
+		tf_userquery_input.setColumns(16);
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(Main.class.getResource("/image/app/125.png")));
+		lblNewLabel_1.setBounds(165, 53, 229, 33);
+		panel_userquery.add(lblNewLabel_1);
+		
+		label_1 = new JLabel("");
+		label_1.setToolTipText("\u786E\u5B9A");
+		label_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("确定");
+			}
+		});
+		label_1.setIcon(new ImageIcon(Main.class.getResource("/image/app/userquery_ok.png")));
+		label_1.setBounds(169, 133, 48, 48);
+		panel_userquery.add(label_1);
+		label_2 = new JLabel("");
+		label_2.setToolTipText("\u91CD\u7F6E");
+		label_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tf_userquery_input.setText("");
+			}
+		});
+		label_2.setIcon(new ImageIcon(Main.class.getResource("/image/app/userquery_reset.png")));
+		label_2.setBounds(227, 133, 48, 48);
+		panel_userquery.add(label_2);
+		
+		/**
+		 * 查询客户-》返回标签
+		 */
+		JLabel label_4 = new JLabel("");
+		label_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tf_userquery_input.setText("");
+				panel_welcome.setVisible(true);
+				panel_userquery.setVisible(false);
+			}
+		});
+		label_4.setIcon(new ImageIcon(Main.class.getResource("/image/app/return.png")));
+		label_4.setToolTipText("\u8FD4\u56DE");
+		label_4.setBounds(333, 198, 61, 55);
+		panel_userquery.add(label_4);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/image/app/\u79DF\u8F66.png")));
+		lblNewLabel.setBounds(102, 25, 538, 146);
+		frame.getContentPane().add(lblNewLabel);
+		
+		panel_welcome = new JPanel();
+		panel_welcome.setBackground(SystemColor.textHighlightText);
+		panel_welcome.setBounds(10, 161, 722, 283);
+		frame.getContentPane().add(panel_welcome);
+		
+		label_3 = new JLabel("");
+		label_3.setIcon(new ImageIcon(Main.class.getResource("/image/app/welcome.png")));
+		panel_welcome.add(label_3);
+		
 	}
 
 	private void mi_car_addActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		new CarAdd();
 	}
-
 }

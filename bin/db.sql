@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : Local instance MySQL
  Source Server Type    : MySQL
- Source Server Version : 50720
- Source Host           : localhost:3306
+ Source Server Version : 50560
+ Source Host           : 127.0.0.1:3306
  Source Schema         : db_heherentcar
 
  Target Server Type    : MySQL
- Target Server Version : 50720
+ Target Server Version : 50560
  File Encoding         : 65001
 
- Date: 06/11/2018 17:10:11
+ Date: 12/11/2018 10:53:02
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `t_car`;
 CREATE TABLE `t_car`  (
   `carID` int(11) NOT NULL,
   `rent` double(255, 0) NOT NULL COMMENT '1日为计算单位，eg：100/日',
-  `carName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `carName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `brank` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '车辆状况，eg：几年车等描述',
   `type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '几座的、“小巴、5座、7座“',
   `carInfo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -45,7 +45,7 @@ COMMIT;
 DROP TABLE IF EXISTS `t_contract`;
 CREATE TABLE `t_contract`  (
   `carID` int(11) NOT NULL COMMENT '车辆编号',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `license` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '驾驶证',
   `time` date NOT NULL COMMENT '时间',
   `rent` double(255, 0) UNSIGNED NOT NULL COMMENT '租金',
@@ -63,13 +63,13 @@ CREATE TABLE `t_login`  (
   `userName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `userPassword` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
 
 -- ----------------------------
 -- Records of t_login
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456');
+INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456'), (4, 'admin', 'admin'), (5, 'jkhj', '叫姐姐');
 COMMIT;
 
 -- ----------------------------
@@ -78,7 +78,7 @@ COMMIT;
 DROP TABLE IF EXISTS `t_users`;
 CREATE TABLE `t_users`  (
   `userID` int(255) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `license` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '驾驶证',
   `IDCard` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '身份证',
