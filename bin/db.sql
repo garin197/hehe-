@@ -11,6 +11,7 @@
  Target Server Version : 50560
  File Encoding         : 65001
 
+<<<<<<< HEAD
  Date: 12/11/2018 10:53:02
 =======
  Date: 06/11/2018 22:20:03
@@ -75,6 +76,8 @@ BEGIN;
 <<<<<<< HEAD
 INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456'), (4, 'admin', 'admin'), (5, 'jkhj', '叫姐姐');
 =======
+INSERT INTO `t_login` VALUES (1, 'rjl', '123456'), (2, 'lrh', '123456'), (3, 'xx', '123456'), (4, 'admin', 'admin');
+>>>>>>> refs/remotes/origin/master
 COMMIT;
 
 -- ----------------------------
