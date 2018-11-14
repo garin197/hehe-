@@ -1,1 +1,7 @@
+
+/.gitignore
 /com/
+<<<<<<< HEAD
+=======
+/db.sql
+>>>>>>> master3
