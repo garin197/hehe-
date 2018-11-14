@@ -1,7 +1,6 @@
 package com.java.dao;
 
-import com.java.model.UserQuery;
-import com.java.util.stringUtil;
+import com.java.model.User;
 
 /**
  * ²éÑ¯¿Í»§
@@ -9,9 +8,9 @@ import com.java.util.stringUtil;
  *
  */
 public class QueryUser {
-	private UserQuery uQuery;
+	private User uQuery;
 
-	public QueryUser(UserQuery uQuery) {
+	public QueryUser(User uQuery) {
 		super();
 		this.uQuery = uQuery;
 	}

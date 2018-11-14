@@ -6,34 +6,34 @@ package com.java.model;
  * @author Garin
  *
  */
-public class UserQuery {
+public class User{
 	private int userID;
 	private String name;
 	private String phone;
 	private String license;
 	private String IDCard;
-	private String carID;
+	private int carID;
 	
-	public UserQuery() {
+	public User() {
 		super();
 	}	
 
-	public UserQuery(int userID, String phone, String license, String iDCard, String carID) {
+	public User(int userID, String phone, String license, String iDCard, int carID) {
 		super();
 		this.userID = userID;
 		this.phone = phone;
 		this.license = license;
-		IDCard = iDCard;
+		this.IDCard = iDCard;
 		this.carID = carID;
 	}
 
-	public UserQuery(int userID, String name, String phone, String license, String iDCard, String carID) {
+	public User(int userID, String name, String phone, String license, String iDCard, int carID) {
 		super();
 		this.userID = userID;
 		this.name = name;
 		this.phone = phone;
 		this.license = license;
-		IDCard = iDCard;
+		this.IDCard = iDCard;
 		this.carID = carID;
 	}
 
@@ -77,11 +77,11 @@ public class UserQuery {
 		IDCard = iDCard;
 	}
 
-	public String getCarID() {
+	public int getCarID() {
 		return carID;
 	}
 
-	public void setCarID(String carID) {
+	public void setCarID(int carID) {
 		this.carID = carID;
 	}
 
