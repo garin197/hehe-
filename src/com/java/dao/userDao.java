@@ -11,7 +11,7 @@ public class userDao {
 	
 	protected static String driver = "com.mysql.jdbc.Driver"; // 数据库驱动
 
-	protected static String url = "jdbc:mysql://127.0.0.1:3306/db_heherentcar?characterEncoding=utf8"; // 连接url
+	protected static String url = "jdbc:mysql://127.0.0.1:3306/db_heherentcar?characterEncoding=utf-8"; // 连接url
 
 	protected static String dbUser = "root"; // 数据库用户名
 
