@@ -1,25 +1,22 @@
 package com.java.window;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.SystemColor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class Main extends JFrame {
 
@@ -32,18 +29,18 @@ public class Main extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Main window = new Main();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Main window = new Main();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	private JMenuBar menuBar;
 	private JMenu menu_info_manage;
@@ -90,6 +87,7 @@ public class Main extends JFrame {
 		frame.setTitle("\u79DF\u8F66\u7CFB\u7EDF");
 		frame.setBounds(100, 100, 748, 517);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 		this.setLocationRelativeTo(null);
 		
 		menuBar = new JMenuBar();
@@ -266,5 +264,22 @@ public class Main extends JFrame {
 	private void mi_car_addActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		new CarAdd();
+	}
+	
+	public void visterlogin(int flag) {
+		switch (flag) {
+		// 一般用户登录
+		case 0:
+			menu_info_manage.setEnabled(false);
+			menu_rentback.setEnabled(false);
+			mi_orders_info.setEnabled(false);
+			break;
+		// 管理员登录
+		case 1:
+			break;
+			
+		default:
+			break;
+		}
 	}
 }
