@@ -1,1 +1,1 @@
-UPDATE t_login SET userName="xj1" WHERE userName="xj";
+select * from t_car;
