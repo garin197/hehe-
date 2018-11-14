@@ -15,7 +15,7 @@ public class userDao {
 
 	protected static String dbUser = "root"; // 数据库用户名
 
-	protected static String dbPwd = "mladn"; // 数据库密码
+	protected static String dbPwd = "root"; // 数据库密码
 
 	private static Connection conn = null;
 

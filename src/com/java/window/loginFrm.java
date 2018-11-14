@@ -1,12 +1,13 @@
 package com.java.window;
 
 import java.awt.EventQueue;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
-
+import com.java.window.Main;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,7 +31,8 @@ public class loginFrm extends JFrame {
 	private JButton btn_close;
 	private JButton btn_youkelogin;
 	private int flag = 1;
-
+	private static boolean haslogin;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -50,6 +52,10 @@ public class loginFrm extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public loginFrm(boolean haslogin) {
+		this();
+		this.haslogin=haslogin;
+	}
 	public loginFrm() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Garin\\Desktop\\hehe\u79DF\u8F66\\image\\app\\car_48px_1132259_easyicon.net.ico"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,10 +119,12 @@ public class loginFrm extends JFrame {
 				flag = 0;
 				Main main = new Main();
 				main.visterlogin(flag);
+				dispose();
 			}
 		});
 		btn_youkelogin.setBounds(171, 165, 93, 23);
 		panel.add(btn_youkelogin);
+		this.setLocationRelativeTo(null);
 	}
 
 	protected void btn_closeActionPerformed(ActionEvent e) {
@@ -157,6 +165,8 @@ public class loginFrm extends JFrame {
 			
 			Main main = new Main();
 			main.visterlogin(flag);
+			main.lbl_relogin1.setVisible(false);
+			main.lbl_relogin2.setVisible(false);
 			this.dispose();
 		} catch (Exception ex) {
 			ex.printStackTrace();
