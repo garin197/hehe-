@@ -224,12 +224,15 @@ public class Main extends JFrame {
 		lblNewLabel_1.setBounds(165, 53, 229, 33);
 		panel_userquery.add(lblNewLabel_1);
 
+		
+		/**
+		 * 查询客户->确定
+		 */
 		label_1 = new JLabel("");
 		label_1.setToolTipText("\u786E\u5B9A");
 		label_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("确定");
 			}
 		});
 		label_1.setIcon(new ImageIcon(Main.class.getResource("/image/app/userquery_ok.png")));
