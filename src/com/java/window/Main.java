@@ -18,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class Main extends JFrame {
 
@@ -83,13 +84,15 @@ public class Main extends JFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/app\u56FE\u6807.png")));
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.getContentPane().setForeground(Color.BLACK);
 		frame.setFont(new Font("Dialog", Font.BOLD, 16));
 		frame.setTitle("\u79DF\u8F66\u7CFB\u7EDF");
 		frame.setBounds(100, 100, 748, 517);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		
 		menuBar = new JMenuBar();
 		menuBar.setBackground(Color.WHITE);
 		menuBar.setForeground(Color.WHITE);
@@ -280,7 +283,9 @@ public class Main extends JFrame {
 		label_3 = new JLabel("");
 		label_3.setIcon(new ImageIcon(Main.class.getResource("/image/app/welcome.png")));
 		panel_welcome.add(label_3);
-		this.setLocationRelativeTo(null);
+		
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 
 	private void mi_car_addActionPerformed(ActionEvent e) {
