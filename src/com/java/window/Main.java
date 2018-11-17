@@ -26,23 +26,9 @@ public class Main extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	public static JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// Main window = new Main();
-	// window.frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
+
 
 	private JMenuBar menuBar;
 	private JMenu menu_info_manage;
@@ -236,7 +222,11 @@ public class Main extends JFrame {
 		label_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				ManageUser manageUser=new ManageUser();
+				manageUser.panel_querybykey.setVisible(true);
+				manageUser.queryUsersInfo(tf_userquery_input.getText());
+				manageUser.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 		label_1.setIcon(new ImageIcon(Main.class.getResource("/image/app/userquery_ok.png")));

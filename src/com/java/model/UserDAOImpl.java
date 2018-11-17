@@ -18,6 +18,30 @@ public class UserDAOImpl implements UserDAO {
 	private Connection connection = null;
 
 	@Override
+	public User queryByKeyword(String key) throws Exception {
+		User user = null;
+		connection = new DatabaseManagerCtrl().getConnection();
+		if (connection != null) {
+			String sql = "select * from t_users where phone=? or IDCard=?";
+			PreparedStatement pStatement = (PreparedStatement) connection.prepareStatement(sql);
+			pStatement.setString(1, key);
+			pStatement.setString(2, key);
+			ResultSet result = pStatement.executeQuery();
+			while (result.next()) {
+				user = new User();
+				user.setUserID(result.getInt(1));
+				user.setName(result.getString(2));
+				user.setPhone(result.getString(3));
+				user.setLicense(result.getString(4));
+				user.setIDCard(result.getString(5));
+				user.setCarID(result.getInt(6));
+			}
+			connection.close();
+		}
+		return user;
+	}
+
+	@Override
 	public List queryALL() throws Exception {
 		/**
 		 * 查询全部用户信息
