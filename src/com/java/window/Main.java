@@ -236,6 +236,7 @@ public class Main extends JFrame {
 		label_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 		label_1.setIcon(new ImageIcon(Main.class.getResource("/image/app/userquery_ok.png")));

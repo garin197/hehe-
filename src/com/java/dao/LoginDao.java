@@ -5,26 +5,20 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.java.util.DBINFO;
+import com.java.util.DatabaseManagerCtrl;
 
-public class userDao {
-	
-	
-	protected static String driver = "com.mysql.jdbc.Driver"; // 数据库驱动
 
-	protected static String url = "jdbc:mysql://127.0.0.1:3306/db_heherentcar?characterEncoding=utf-8"; // 连接url
+public class LoginDao {
 
-	protected static String dbUser = "root"; // 数据库用户名
-
-	protected static String dbPwd = "root"; // 数据库密码
 
 	private static Connection conn = null;
 
 	// 构造方法，创建数据库连接
-	private userDao() {
+	private LoginDao() {
 		try {
 			if (conn == null) {
-				Class.forName(driver); // 加载数据库驱动
-				conn = DriverManager.getConnection(url, dbUser, dbPwd); // 建立数据库连接
+				conn = new DatabaseManagerCtrl().getConnection();
 				System.out.println("连接成功！！！！！！！！！！！");
 			} else
 				System.out.println("连接失败！！！！！！！！！！！");
@@ -38,7 +32,7 @@ public class userDao {
 	public static ResultSet executeQuery(String sql) {
 		try {
 			if (conn == null)
-				new userDao();
+				new LoginDao();
 			return conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE).executeQuery(sql); // 执行数据库查询
 		} catch (SQLException e) {
@@ -52,7 +46,7 @@ public class userDao {
 
 		try {
 			if (conn == null)
-				new userDao();
+				new LoginDao();
 			return conn.createStatement().executeUpdate(sql); // 执行数据库更新
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

@@ -17,7 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.java.dao.userDao;
+import com.java.dao.LoginDao;
 
 public class loginFrm extends JFrame {
 
@@ -148,14 +148,13 @@ public class loginFrm extends JFrame {
 			// 在数据库中查询
 			String sqlStr = "select * from t_login where userName=" + "'" + user
 					+ "' and userPassword=" + "'" + pass + "'";
-			ResultSet result = userDao.executeQuery(sqlStr);
+			ResultSet result = LoginDao.executeQuery(sqlStr);
 			if (result.next()) {
 				username = result.getString("userName");
-				
-				userDao.close();
+				LoginDao.close();
 			} else {
 				JOptionPane.showMessageDialog(this, "用户名或密码不正确!");
-				userDao.close();
+				LoginDao.close();
 				return;
 			}
 
