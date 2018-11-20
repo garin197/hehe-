@@ -28,8 +28,6 @@ public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static JFrame frame;
 
-
-
 	private JMenuBar menuBar;
 	private JMenu menu_info_manage;
 	private JMenu menu_rentback;
@@ -57,6 +55,7 @@ public class Main extends JFrame {
 	private JLabel label_3;
 	protected JLabel lbl_relogin2;
 	protected JLabel lbl_relogin1;
+	private ManageUser manageUser = null;
 
 	/**
 	 * Create the application.
@@ -78,7 +77,7 @@ public class Main extends JFrame {
 		frame.setTitle("\u79DF\u8F66\u7CFB\u7EDF");
 		frame.setBounds(100, 100, 748, 517);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		menuBar = new JMenuBar();
 		menuBar.setBackground(Color.WHITE);
 		menuBar.setForeground(Color.WHITE);
@@ -117,14 +116,59 @@ public class Main extends JFrame {
 		menu_info_manage.add(menu_client_manage);
 		// 客户管理
 		mi_client_add = new JMenuItem("\u5BA2\u6237\u589E\u52A0");
+		mi_client_add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manageUser == null) {
+					manageUser = new ManageUser();
+				}
+				manageUser.panel_adduser.setVisible(true);
+				manageUser.panel_updateuser.setVisible(false);
+				manageUser.panel_deleteuser.setVisible(false);
+				manageUser.panel_queryall.setVisible(false);
+				manageUser.panel_querybykey.setVisible(false);
+				//todo
+				manageUser.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
 		mi_client_add.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menu_client_manage.add(mi_client_add);
 
 		mi_client_del = new JMenuItem("\u5BA2\u6237\u5220\u9664");
+		mi_client_del.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manageUser == null) {
+					manageUser = new ManageUser();
+				}
+				manageUser.panel_deleteuser.setVisible(true);
+				manageUser.panel_adduser.setVisible(false);
+				manageUser.panel_queryall.setVisible(false);
+				manageUser.panel_querybykey.setVisible(false);
+				manageUser.panel_updateuser.setVisible(false);
+				manageUser.loadUserInfo();
+				manageUser.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
 		mi_client_del.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menu_client_manage.add(mi_client_del);
 
 		mi_client_update = new JMenuItem("\u5BA2\u6237\u4FEE\u6539");
+		mi_client_update.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manageUser == null) {
+					manageUser = new ManageUser();
+				}
+				manageUser.panel_updateuser.setVisible(true);
+				manageUser.panel_adduser.setVisible(false);
+				manageUser.panel_deleteuser.setVisible(false);
+				manageUser.panel_queryall.setVisible(false);
+				manageUser.panel_querybykey.setVisible(false);
+//				todo
+				manageUser.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
 		mi_client_update.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menu_client_manage.add(mi_client_update);
 
@@ -213,7 +257,6 @@ public class Main extends JFrame {
 		lblNewLabel_1.setBounds(165, 53, 229, 33);
 		panel_userquery.add(lblNewLabel_1);
 
-		
 		/**
 		 * 查询客户->确定
 		 */
@@ -222,7 +265,9 @@ public class Main extends JFrame {
 		label_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ManageUser manageUser=new ManageUser();
+				if (manageUser == null) {
+					manageUser = new ManageUser();
+				}
 				manageUser.panel_querybykey.setVisible(true);
 				manageUser.queryUsersInfo(tf_userquery_input.getText());
 				manageUser.setVisible(true);
@@ -274,7 +319,7 @@ public class Main extends JFrame {
 		label_3 = new JLabel("");
 		label_3.setIcon(new ImageIcon(Main.class.getResource("/image/app/welcome.png")));
 		panel_welcome.add(label_3);
-		
+
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}

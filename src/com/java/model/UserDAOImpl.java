@@ -12,6 +12,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 import com.sun.org.apache.bcel.internal.generic.Select;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 public class UserDAOImpl implements UserDAO {
 	private List list = null;
@@ -88,13 +89,19 @@ public class UserDAOImpl implements UserDAO {
 		connection = new DatabaseManagerCtrl().getConnection();
 		boolean flag = false;// 成功标记
 		if (connection != null) {
-			String sql = "insert into t_users(name,phone,license,IDCard,carID) values(?,?,?,?,?)";
-			PreparedStatement preparedStatement = (PreparedStatement) connection.clientPrepareStatement(sql);
+			PreparedStatement preparedStatement=null;
+			if (user.getCarID()==0) {
+				String sql = "insert into t_users(name,phone,license,IDCard) values(?,?,?,?)";
+				preparedStatement = (PreparedStatement) connection.clientPrepareStatement(sql);
+			}else {
+				String sql = "insert into t_users(name,phone,license,IDCard,carID) values(?,?,?,?,?)";
+				preparedStatement = (PreparedStatement) connection.clientPrepareStatement(sql);
+				preparedStatement.setInt(5, user.getCarID());
+			}
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getPhone());
 			preparedStatement.setString(3, user.getLicense());
 			preparedStatement.setString(4, user.getIDCard());
-			preparedStatement.setInt(5, user.getCarID());
 			preparedStatement.executeUpdate();
 			flag = true;
 			connection.close();
