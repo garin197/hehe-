@@ -56,6 +56,7 @@ public class Main extends JFrame {
 	protected JLabel lbl_relogin2;
 	protected JLabel lbl_relogin1;
 	private ManageUser manageUser = null;
+	private JLabel label_5;
 
 	/**
 	 * Create the application.
@@ -234,7 +235,12 @@ public class Main extends JFrame {
 		/**
 		 * 客户查询 -》 重置按钮
 		 */
-
+		
+		label_5 = new JLabel("");
+		label_5.setBounds(572, 209, 160, 139);
+		frame.getContentPane().add(label_5);
+		label_5.setIcon(new ImageIcon(Main.class.getResource("/images/gif.gif")));
+		
 		panel_userquery = new JPanel();
 		panel_userquery.setBackground(Color.WHITE);
 		panel_userquery.setBounds(157, 181, 416, 263);

@@ -1,10 +1,13 @@
 package com.java.window;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.PopupMenu;
 import java.awt.Toolkit;
@@ -13,18 +16,25 @@ import java.awt.Window;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import com.java.dao.UserDAO;
 import com.java.model.User;
 import com.java.model.UserDAOImpl;
 import com.java.util.stringUtil;
+import com.sun.javafx.iio.gif.GIFImageLoader2;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import com.sun.xml.internal.ws.api.client.ThrowableInPacketCompletionFeature;
 
+import sun.net.www.content.image.gif;
 import sun.security.provider.certpath.Vertex;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 import java.awt.Window.Type;
 import javax.swing.JLabel;
 import javax.swing.DefaultCellEditor;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -34,6 +44,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -47,9 +59,12 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+import javax.swing.text.TableView.TableCell;
 
 public class ManageUser extends JFrame {
 	final static private String[] TABLE_COLUMN_NAME = new String[] { "id\u53F7", "\u59D3\u540D",
@@ -84,6 +99,8 @@ public class ManageUser extends JFrame {
 	private JLabel err_idcard;
 	private JTable table_on_del_panel;
 	private TableModel tableModelOnDelPanel;
+	protected int tableChangeFlag = -1;
+	private List<User> allUser = null;
 
 	/**
 	 * Create the frame.
@@ -124,10 +141,54 @@ public class ManageUser extends JFrame {
 				dispose();
 			}
 		});
+		
+		JLabel label_6 = new JLabel("");
+		label_6.setBounds(17, 5, 333, 59);
+		label_6.setVisible(false);
+		panel_deleteuser.add(label_6);
+		label_6.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u5220\u9664\u5904\u7406\u63D0\u793A.png")));
 		lable_delete_user_return.setBounds(636, 30, 54, 15);
 		panel_deleteuser.add(lable_delete_user_return);
 
 		JLabel lable_deleteOnePress = new JLabel("\u4E00\u952E\u5220\u9664");
+		lable_deleteOnePress.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Thread thread =new Thread(new Runnable() {
+					@Override
+					public void run() {
+						label_6.setVisible(true);
+						label_6.update(label_6.getGraphics());
+					}
+				});
+				thread.start();
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+						}
+						thread.stop();
+						label_6.setVisible(false);
+					}
+				}).start();;
+				boolean[] userlist = getUserListToDel();
+				User user = null;
+				for (int i = 0; i < allUser.size(); i++) {
+					user = allUser.get(i);
+					if (user.getCarID() == 0 && userlist[i]) {// 删除没有租车的
+						try {
+							new UserDAOImpl().delect(user);
+						} catch (Exception e1) {
+						}
+						loadUserInfo();
+					}
+				}
+				//thread
+			}
+		});
 		lable_deleteOnePress.setBounds(539, 30, 64, 15);
 		panel_deleteuser.add(lable_deleteOnePress);
 
@@ -427,6 +488,20 @@ public class ManageUser extends JFrame {
 		// panel_querybykey.setVisible(false);
 	}
 
+	protected boolean[] getUserListToDel() {
+		int rows = table_on_del_panel.getModel().getRowCount();
+		boolean[] bs = new boolean[rows];
+		TableModel tableModel = table_on_del_panel.getModel();
+		for (int i = 0; i < rows; i++) {
+			if (tableModel.getValueAt(i, 6) == Boolean.TRUE) {
+				bs[i] = true;
+			} else {
+				bs[i] = false;
+			}
+		}
+		return bs;
+	}
+
 	public void queryUsersInfo(String key) {
 
 		UserDAO userDAO = new UserDAOImpl();
@@ -512,7 +587,7 @@ public class ManageUser extends JFrame {
 		for (String string : TABLE_COLUMN_NAME) {
 			columnNames.add(string);
 		}
-		List<User> allUser = null;
+
 		try {
 			// 数据库拉数据
 			allUser = new UserDAOImpl().queryALL();
@@ -528,28 +603,22 @@ public class ManageUser extends JFrame {
 				data.add(user.getIDCard());
 				if (user.getCarID() != 0) {
 					data.add("是");
-
-//					data.add(choose);
 				} else {
 					data.add("否");
-//					JCheckBox choose = new JCheckBox();
-//					choose.setEnabled(false);
-//					choose.setVisible(true);
-//					data.add(choose);
 				}
 				rowData.add(data);
 			}
 		} else {
 
 		}
-//		for(Vector<Object> vertex:rowData) {
-//			if(((String)vertex.lastElement()).equals("是")) {
-//				JCheckBox choose = new JCheckBox();
-//				choose.setEnabled(true);
-//				choose.setVisible(true);
-//			}
-//		}
-		DefaultTableModel currentModel = new DefaultTableModel(rowData, columnNames);
+		DefaultTableModel currentModel = new DefaultTableModel(rowData, columnNames) {
+			public boolean isCellEditable(int row, int column) {
+				if (column == 6) {
+					return true;
+				}
+				return false;
+			}
+		};
 		table_on_del_panel.setModel(currentModel);
 		table_on_del_panel.getColumnModel().getColumn(0).setPreferredWidth(47);
 		table_on_del_panel.getColumnModel().getColumn(1).setPreferredWidth(64);
@@ -558,8 +627,38 @@ public class ManageUser extends JFrame {
 		table_on_del_panel.getColumnModel().getColumn(4).setPreferredWidth(147);
 		table_on_del_panel.getColumnModel().getColumn(5).setPreferredWidth(67);
 		table_on_del_panel.getColumnModel().getColumn(6).setPreferredWidth(53);
-		TableColumnModel tcModel=table_on_del_panel.getColumnModel();
-		tcModel.getColumn(6).setCellEditor(new DefaultCellEditor(new JCheckBox("111", true)));
-		
+		TableColumn tc = table_on_del_panel.getColumnModel().getColumn(6);
+		tc.setCellEditor(table_on_del_panel.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(table_on_del_panel.getDefaultRenderer(Boolean.class));
+		tc.getCellEditor().cancelCellEditing();
+		tc.addPropertyChangeListener(new PropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+
+			}
+		});
+		for (int i = 0; i < allUser.size(); i++) {
+			User user = allUser.get(i);
+			table_on_del_panel.getModel().setValueAt(Boolean.FALSE, i, 6);
+			if (user.getCarID() != 0) {
+				table_on_del_panel.getModel().setValueAt(Boolean.FALSE, i, 6);
+			}
+		}
+		// table_on_del_panel.getModel().addTableModelListener(new TableModelListener()
+		// {
+		//
+		// @Override
+		// public void tableChanged(TableModelEvent e) {
+		// System.out.println(e.getFirstRow()+" "+e.getLastRow());
+		// if (table_on_del_panel.getModel().getValueAt(e.getFirstRow(), 5).equals("否")
+		// && tableChangeFlag == e.getFirstRow()) {
+		// table_on_del_panel.getModel().setValueAt(new Boolean(false), e.getFirstRow(),
+		// 6);
+		// }
+		// tableChangeFlag = e.getFirstRow();
+		// }
+		// });
+		table_on_del_panel.update(table_on_del_panel.getGraphics());
 	}
 }
