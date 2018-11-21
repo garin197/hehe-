@@ -127,7 +127,7 @@ public class Main extends JFrame {
 				manageUser.panel_deleteuser.setVisible(false);
 				manageUser.panel_queryall.setVisible(false);
 				manageUser.panel_querybykey.setVisible(false);
-				//todo
+				// todo
 				manageUser.setVisible(true);
 				frame.setVisible(false);
 			}
@@ -146,7 +146,7 @@ public class Main extends JFrame {
 				manageUser.panel_queryall.setVisible(false);
 				manageUser.panel_querybykey.setVisible(false);
 				manageUser.panel_updateuser.setVisible(false);
-				manageUser.loadUserInfo();
+				manageUser.loadUserInfoInDel();
 				manageUser.setVisible(true);
 				frame.setVisible(false);
 			}
@@ -165,7 +165,7 @@ public class Main extends JFrame {
 				manageUser.panel_deleteuser.setVisible(false);
 				manageUser.panel_queryall.setVisible(false);
 				manageUser.panel_querybykey.setVisible(false);
-//				todo
+				manageUser.loadUserInfoInUpd();
 				manageUser.setVisible(true);
 				frame.setVisible(false);
 			}
@@ -179,6 +179,12 @@ public class Main extends JFrame {
 		menuBar.add(menu_rentback);
 
 		mi_car_rent = new JMenuItem("\u79DF\u8F66");
+		mi_car_rent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		mi_car_rent.setIcon(new ImageIcon(Main.class.getResource("/images/\u79DF\u8F661.png")));
 		mi_car_rent.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		menu_rentback.add(mi_car_rent);
@@ -235,12 +241,12 @@ public class Main extends JFrame {
 		/**
 		 * 客户查询 -》 重置按钮
 		 */
-		
+
 		label_5 = new JLabel("");
 		label_5.setBounds(572, 209, 160, 139);
 		frame.getContentPane().add(label_5);
 		label_5.setIcon(new ImageIcon(Main.class.getResource("/images/gif.gif")));
-		
+
 		panel_userquery = new JPanel();
 		panel_userquery.setBackground(Color.WHITE);
 		panel_userquery.setBounds(157, 181, 416, 263);
