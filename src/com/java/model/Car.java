@@ -6,13 +6,36 @@ package com.java.model;
  * @author Garin
  *
  */
-public class Car{
+public class Car {
+	private double rent;
+	private String carName;
+	private String brank;
+	private String type;
+	private String carInfo;
+	private int  number;
+	private int userID;
 	private int carID;
-	public String getRent() {
+
+	public Car() {
+		super();
+	}
+
+	public Car(double rent, String carName, String brank, String type, String carInfo, int number, int carID) {
+		super();
+		this.rent = rent;
+		this.carName = carName;
+		this.brank = brank;
+		this.type = type;
+		this.carInfo = carInfo;
+		this.number = number;
+		this.carID = carID;
+	}
+
+	public double getRent() {
 		return rent;
 	}
 
-	public void setRent(String rent) {
+	public void setRent(double rent) {
 		this.rent = rent;
 	}
 
@@ -48,53 +71,12 @@ public class Car{
 		this.carInfo = carInfo;
 	}
 
-	public String getNumber() {
+	public int  getNumber() {
 		return number;
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(int number) {
 		this.number = number;
-	}
-
-	private String rent;
-	private String carName;
-	private String brank;
-	private String type;
-	private String carInfo;
-	private String number;
-	private int userID;
-	
-	public Car() {
-		super();
-	}	
-
-	public Car(int carID, String rent, String carName, String brank,String type,String carInfo,String number, int userID) {
-		super();
-		this.carID = carID;
-		this.rent  = rent;
-		this.carName = carName;
-		this.brank = brank;
-		this.type = type;
-		this.carInfo = carInfo;
-		this.userID = userID;
-	}
-
-	public Car(int carID, String rent,  String brank,String type,String carInfo,String number, int userID) {
-		super();
-		this.carID = carID;
-		this.rent = rent;
-		this.brank = brank;
-		this.type = type;
-		this.carInfo = carInfo;
-		this.userID = userID;
-	}
-
-	public int getCarID() {
-		return carID;
-	}
-
-	public void setCarID(int userID) {
-		this.userID = carID;
 	}
 
 	public int getUserID() {
@@ -105,6 +87,11 @@ public class Car{
 		this.userID = userID;
 	}
 
+	public int getCarID() {
+		return carID;
+	}
 
-
+	public void setCarID(int carID) {
+		this.carID = carID;
+	}
 }

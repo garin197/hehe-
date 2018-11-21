@@ -221,6 +221,15 @@ public class Main extends JFrame {
 		menu_info_query.add(mi_client_info);
 
 		mi_orders_info = new JMenuItem("\u67E5\u770B\u6240\u6709\u8BA2\u5355");
+		mi_orders_info.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ManageRent manageRent=new ManageRent();
+				manageRent.setVisible(true);
+				manageRent.showAllContract();
+				frame.setVisible(false);
+				
+			}
+		});
 		mi_orders_info.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		menu_info_query.add(mi_orders_info);
 
