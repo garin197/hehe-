@@ -136,10 +136,6 @@ public class ManageUser extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setForeground(Color.BLACK);
 
-		panel_querybykey = new JPanel();
-		panel_querybykey.setBounds(0, 131, 742, 357);
-		panel_querybykey.setVisible(false);
-
 		panel_deleteuser = new JPanel();
 		panel_deleteuser.setBounds(0, 131, 742, 357);
 		panel_deleteuser.setVisible(false);
@@ -148,158 +144,242 @@ public class ManageUser extends JFrame {
 		panel_updateuser = new JPanel();
 		panel_updateuser.setBounds(0, 131, 742, 357);
 		panel_updateuser.setVisible(false);
-		
-				panel_adduser = new JPanel();
-				panel_adduser.setBounds(0, 131, 742, 357);
-				panel_adduser.setVisible(false);
-				panel_adduser.setBackground(Color.WHITE);
-				contentPane.add(panel_adduser);
-				panel_adduser.setLayout(null);
-				
-						JLabel lblP = new JLabel("");
-						lblP.setBounds(8, 5, 726, 38);
-						lblP.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u589E\u52A0user.png")));
-						panel_adduser.add(lblP);
-						
-								lable_add_name = new JLabel("\u59D3\u540D");
-								lable_add_name.setToolTipText("");
-								lable_add_name.setSize(new Dimension(3, 3));
-								lable_add_name.setBounds(206, 137, 54, 15);
-								panel_adduser.add(lable_add_name);
-								
-										lable_add_phone = new JLabel("\u624B\u673A");
-										lable_add_phone.setSize(new Dimension(3, 3));
-										lable_add_phone.setBounds(206, 171, 54, 15);
-										panel_adduser.add(lable_add_phone);
-										
-												lable_add_license = new JLabel("\u8F66\u724C");
-												lable_add_license.setSize(new Dimension(3, 3));
-												lable_add_license.setBounds(206, 204, 54, 15);
-												panel_adduser.add(lable_add_license);
-												
-														lable_add_idcard = new JLabel("\u8EAB\u4EFD\u8BC1");
-														lable_add_idcard.setSize(new Dimension(3, 3));
-														lable_add_idcard.setBounds(206, 239, 54, 15);
-														panel_adduser.add(lable_add_idcard);
-														
-																tf_add_name = new JTextField();
-																tf_add_name.addFocusListener(new FocusAdapter() {
-																	@Override
-																	public void focusGained(FocusEvent e) {
-																		err_name.setText("");
-																		err_name.update(getGraphics());
-																	}
-																});
-																
-																		tf_add_name.setColumns(10);
-																		tf_add_name.setBounds(270, 137, 286, 21);
-																		panel_adduser.add(tf_add_name);
-																		
-																				tf_add_phone = new JTextField();
-																				tf_add_phone.addFocusListener(new FocusAdapter() {
-																					@Override
-																					public void focusGained(FocusEvent e) {
-																						err_phone.setText("");
-																						err_phone.update(getGraphics());
-																					}
-																				});
-																				
-																						tf_add_phone.setColumns(12);
-																						tf_add_phone.setBounds(270, 171, 286, 21);
-																						panel_adduser.add(tf_add_phone);
-																						
-																								tf_add_license = new JTextField();
-																								tf_add_license.addFocusListener(new FocusAdapter() {
-																									@Override
-																									public void focusGained(FocusEvent e) {
-																										err_license.setText("");
-																										err_license.update(getGraphics());
-																									}
-																								});
-																								
-																										tf_add_license.setColumns(25);
-																										tf_add_license.setBounds(270, 204, 286, 21);
-																										panel_adduser.add(tf_add_license);
-																										
-																												tf_add_idcard = new JTextField();
-																												tf_add_idcard.addFocusListener(new FocusAdapter() {
-																													@Override
-																													public void focusGained(FocusEvent e) {
-																														err_idcard.setText("");
-																														err_idcard.update(getGraphics());
-																													}
-																												});
-																												
-																														tf_add_idcard.setColumns(10);
-																														tf_add_idcard.setBounds(270, 239, 286, 21);
-																														panel_adduser.add(tf_add_idcard);
-																														
-																																label_5 = new JLabel("");
-																																label_5.addMouseListener(new MouseAdapter() {
-																																	@Override
-																																	public void mouseClicked(MouseEvent e) {
-																																		Main.frame.setVisible(true);
-																																		dispose();
-																																	}
-																																});
-																																label_5.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/return.png")));
-																																label_5.setBounds(631, 287, 73, 48);
-																																panel_adduser.add(label_5);
-																																
-																																		label_submit = new JLabel("");
-																																		
-																																				label_submit.addMouseListener(new MouseAdapter() {
-																																					@Override
-																																					public void mouseEntered(MouseEvent e) {
-																																						label_submit.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u63D0\u4EA4enter.png")));
-																																						// label_submit.setBounds(347, 287, 92, 38);
-																																						label_submit.update(label_submit.getGraphics());
-																																					}
-																																		
-																																					@Override
-																																					public void mouseExited(MouseEvent e) {
-																																						label_submit.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u63D0\u4EA4out.png")));
-																																						// label_submit.setBounds(347, 287, 92, 38);
-																																						label_submit.update(label_submit.getGraphics());
-																																					}
-																																		
-																																					@Override
-																																					public void mouseClicked(MouseEvent e) {
-																																						User user = isDataValidInAddUser();
-																																						update(getGraphics());
-																																						if (user != null) {
-																																							UserDAO userDAO = new UserDAOImpl();
-																																							try {
-																																								userDAO.insert(user);
-																																							} catch (Exception e1) {
-																																							}
-																																						}
-																																					}
-																																				});
-																																				label_submit.setForeground(Color.WHITE);
-																																				label_submit.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u63D0\u4EA4out.png")));
-																																				label_submit.setBounds(347, 287, 92, 38);
-																																				panel_adduser.add(label_submit);
-																																				
-																																						err_name = new JLabel("");
-																																						err_name.setForeground(Color.RED);
-																																						err_name.setBounds(566, 140, 168, 15);
-																																						panel_adduser.add(err_name);
-																																						
-																																								err_phone = new JLabel("");
-																																								err_phone.setForeground(Color.RED);
-																																								err_phone.setBounds(566, 171, 54, 15);
-																																								panel_adduser.add(err_phone);
-																																								
-																																										err_license = new JLabel("");
-																																										err_license.setForeground(Color.RED);
-																																										err_license.setBounds(566, 207, 54, 15);
-																																										panel_adduser.add(err_license);
-																																										
-																																												err_idcard = new JLabel("");
-																																												err_idcard.setForeground(Color.RED);
-																																												err_idcard.setBounds(566, 239, 54, 15);
-																																												panel_adduser.add(err_idcard);
+
+		panel_querybykey = new JPanel();
+		panel_querybykey.setBounds(0, 131, 742, 357);
+		panel_querybykey.setVisible(false);
+
+		panel_adduser = new JPanel();
+		panel_adduser.setBounds(0, 131, 742, 357);
+		panel_adduser.setVisible(false);
+		panel_adduser.setBackground(Color.WHITE);
+		contentPane.add(panel_adduser);
+		panel_adduser.setLayout(null);
+
+		JLabel lblP = new JLabel("");
+		lblP.setBounds(8, 5, 726, 38);
+		lblP.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u589E\u52A0user.png")));
+		panel_adduser.add(lblP);
+
+		lable_add_name = new JLabel("\u59D3\u540D");
+		lable_add_name.setToolTipText("");
+		lable_add_name.setSize(new Dimension(3, 3));
+		lable_add_name.setBounds(206, 137, 54, 15);
+		panel_adduser.add(lable_add_name);
+
+		lable_add_phone = new JLabel("\u624B\u673A");
+		lable_add_phone.setSize(new Dimension(3, 3));
+		lable_add_phone.setBounds(206, 171, 54, 15);
+		panel_adduser.add(lable_add_phone);
+
+		lable_add_license = new JLabel("\u8F66\u724C");
+		lable_add_license.setSize(new Dimension(3, 3));
+		lable_add_license.setBounds(206, 204, 54, 15);
+		panel_adduser.add(lable_add_license);
+
+		lable_add_idcard = new JLabel("\u8EAB\u4EFD\u8BC1");
+		lable_add_idcard.setSize(new Dimension(3, 3));
+		lable_add_idcard.setBounds(206, 239, 54, 15);
+		panel_adduser.add(lable_add_idcard);
+
+		tf_add_name = new JTextField();
+		tf_add_name.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				err_name.setText("");
+				err_name.update(getGraphics());
+			}
+		});
+
+		tf_add_name.setColumns(10);
+		tf_add_name.setBounds(270, 137, 286, 21);
+		panel_adduser.add(tf_add_name);
+
+		tf_add_phone = new JTextField();
+		tf_add_phone.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				err_phone.setText("");
+				err_phone.update(getGraphics());
+			}
+		});
+
+		tf_add_phone.setColumns(12);
+		tf_add_phone.setBounds(270, 171, 286, 21);
+		panel_adduser.add(tf_add_phone);
+
+		tf_add_license = new JTextField();
+		tf_add_license.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				err_license.setText("");
+				err_license.update(getGraphics());
+			}
+		});
+
+		tf_add_license.setColumns(25);
+		tf_add_license.setBounds(270, 204, 286, 21);
+		panel_adduser.add(tf_add_license);
+
+		tf_add_idcard = new JTextField();
+		tf_add_idcard.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				err_idcard.setText("");
+				err_idcard.update(getGraphics());
+			}
+		});
+
+		tf_add_idcard.setColumns(10);
+		tf_add_idcard.setBounds(270, 239, 286, 21);
+		panel_adduser.add(tf_add_idcard);
+
+		label_5 = new JLabel("");
+		label_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Main.frame.setVisible(true);
+				dispose();
+			}
+		});
+		label_5.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/return.png")));
+		label_5.setBounds(631, 287, 73, 48);
+		panel_adduser.add(label_5);
+
+		label_submit = new JLabel("");
+
+		label_submit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				label_submit.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u63D0\u4EA4enter.png")));
+				// label_submit.setBounds(347, 287, 92, 38);
+				label_submit.update(label_submit.getGraphics());
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				label_submit.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u63D0\u4EA4out.png")));
+				// label_submit.setBounds(347, 287, 92, 38);
+				label_submit.update(label_submit.getGraphics());
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				User user = isDataValidInAddUser();
+				update(getGraphics());
+				if (user != null) {
+					UserDAO userDAO = new UserDAOImpl();
+					try {
+						userDAO.insert(user);
+					} catch (Exception e1) {
+					}
+				}
+			}
+		});
+		label_submit.setForeground(Color.WHITE);
+		label_submit.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u63D0\u4EA4out.png")));
+		label_submit.setBounds(347, 287, 92, 38);
+		panel_adduser.add(label_submit);
+
+		err_name = new JLabel("");
+		err_name.setForeground(Color.RED);
+		err_name.setBounds(566, 140, 168, 15);
+		panel_adduser.add(err_name);
+
+		err_phone = new JLabel("");
+		err_phone.setForeground(Color.RED);
+		err_phone.setBounds(566, 171, 54, 15);
+		panel_adduser.add(err_phone);
+
+		err_license = new JLabel("");
+		err_license.setForeground(Color.RED);
+		err_license.setBounds(566, 207, 54, 15);
+		panel_adduser.add(err_license);
+
+		err_idcard = new JLabel("");
+		err_idcard.setForeground(Color.RED);
+		err_idcard.setBounds(566, 239, 54, 15);
+		panel_adduser.add(err_idcard);
+		panel_querybykey.setBackground(Color.WHITE);
+		contentPane.add(panel_querybykey);
+		panel_querybykey.setLayout(null);
+
+		JLabel label_4 = new JLabel("");
+		label_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Main.frame.setVisible(true);
+				dispose();
+			}
+		});
+		label_4.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/return.png")));
+		label_4.setBounds(639, 281, 73, 48);
+		panel_querybykey.add(label_4);
+
+		JLabel lblP_4 = new JLabel("");
+		lblP_4.setBounds(306, 5, 129, 39);
+		lblP_4.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u5BA2\u6237\u4FE1\u606F.png")));
+		panel_querybykey.add(lblP_4);
+
+		JLabel id = new JLabel("\u5BA2\u6237ID");
+		id.setSize(new Dimension(3, 3));
+		id.setBounds(242, 79, 54, 15);
+		panel_querybykey.add(id);
+
+		JLabel label = new JLabel("\u59D3\u540D");
+		label.setSize(new Dimension(3, 3));
+		label.setBounds(242, 115, 54, 15);
+		panel_querybykey.add(label);
+
+		JLabel label_1 = new JLabel("\u624B\u673A");
+		label_1.setSize(new Dimension(3, 3));
+		label_1.setBounds(242, 149, 54, 15);
+		panel_querybykey.add(label_1);
+
+		JLabel label_2 = new JLabel("\u8F66\u724C");
+		label_2.setSize(new Dimension(3, 3));
+		label_2.setBounds(242, 182, 54, 15);
+		panel_querybykey.add(label_2);
+
+		JLabel label_3 = new JLabel("\u8EAB\u4EFD\u8BC1");
+		label_3.setSize(new Dimension(3, 3));
+		label_3.setBounds(242, 217, 54, 15);
+		panel_querybykey.add(label_3);
+
+		tf_userinfo_id = new JTextField();
+		tf_userinfo_id.setForeground(UIManager.getColor("Button.foreground"));
+		tf_userinfo_id.setBackground(UIManager.getColor("Button.highlight"));
+		tf_userinfo_id.setEditable(false);
+		tf_userinfo_id.setBounds(299, 76, 433, 21);
+		panel_querybykey.add(tf_userinfo_id);
+		tf_userinfo_id.setColumns(10);
+
+		tf_userinfo_name = new JTextField();
+		tf_userinfo_name.setEditable(false);
+		tf_userinfo_name.setColumns(10);
+		tf_userinfo_name.setBounds(299, 112, 433, 21);
+		panel_querybykey.add(tf_userinfo_name);
+
+		tf_userinfo_phone = new JTextField();
+		tf_userinfo_phone.setEditable(false);
+		tf_userinfo_phone.setColumns(12);
+		tf_userinfo_phone.setBounds(299, 146, 433, 21);
+		panel_querybykey.add(tf_userinfo_phone);
+
+		tf_userinfo_license = new JTextField();
+		tf_userinfo_license.setEditable(false);
+		tf_userinfo_license.setColumns(25);
+		tf_userinfo_license.setBounds(299, 179, 433, 21);
+		panel_querybykey.add(tf_userinfo_license);
+
+		tf_userinfo_idcard = new JTextField();
+		tf_userinfo_idcard.setEditable(false);
+		tf_userinfo_idcard.setColumns(10);
+		tf_userinfo_idcard.setBounds(299, 214, 433, 21);
+		panel_querybykey.add(tf_userinfo_idcard);
+
+		result_img = new JLabel("");
+		panel_querybykey.add(result_img);
 		panel_updateuser.setBackground(Color.WHITE);
 		contentPane.add(panel_updateuser);
 		panel_updateuser.setLayout(null);
@@ -510,86 +590,6 @@ public class ManageUser extends JFrame {
 		table_on_del_panel.getColumnModel().getColumn(5).setPreferredWidth(67);
 		table_on_del_panel.getColumnModel().getColumn(6).setPreferredWidth(53);
 		scrollPane.setViewportView(table_on_del_panel);
-		panel_querybykey.setBackground(Color.WHITE);
-		contentPane.add(panel_querybykey);
-		panel_querybykey.setLayout(null);
-
-		JLabel lblP_4 = new JLabel("");
-		lblP_4.setBounds(306, 5, 129, 39);
-		lblP_4.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u5BA2\u6237\u4FE1\u606F.png")));
-		panel_querybykey.add(lblP_4);
-
-		JLabel id = new JLabel("\u5BA2\u6237ID");
-		id.setSize(new Dimension(3, 3));
-		id.setBounds(242, 79, 54, 15);
-		panel_querybykey.add(id);
-
-		JLabel label = new JLabel("\u59D3\u540D");
-		label.setSize(new Dimension(3, 3));
-		label.setBounds(242, 115, 54, 15);
-		panel_querybykey.add(label);
-
-		JLabel label_1 = new JLabel("\u624B\u673A");
-		label_1.setSize(new Dimension(3, 3));
-		label_1.setBounds(242, 149, 54, 15);
-		panel_querybykey.add(label_1);
-
-		JLabel label_2 = new JLabel("\u8F66\u724C");
-		label_2.setSize(new Dimension(3, 3));
-		label_2.setBounds(242, 182, 54, 15);
-		panel_querybykey.add(label_2);
-
-		JLabel label_3 = new JLabel("\u8EAB\u4EFD\u8BC1");
-		label_3.setSize(new Dimension(3, 3));
-		label_3.setBounds(242, 217, 54, 15);
-		panel_querybykey.add(label_3);
-
-		tf_userinfo_id = new JTextField();
-		tf_userinfo_id.setForeground(UIManager.getColor("Button.foreground"));
-		tf_userinfo_id.setBackground(UIManager.getColor("Button.highlight"));
-		tf_userinfo_id.setEditable(false);
-		tf_userinfo_id.setBounds(299, 76, 433, 21);
-		panel_querybykey.add(tf_userinfo_id);
-		tf_userinfo_id.setColumns(10);
-
-		tf_userinfo_name = new JTextField();
-		tf_userinfo_name.setEditable(false);
-		tf_userinfo_name.setColumns(10);
-		tf_userinfo_name.setBounds(299, 112, 433, 21);
-		panel_querybykey.add(tf_userinfo_name);
-
-		tf_userinfo_phone = new JTextField();
-		tf_userinfo_phone.setEditable(false);
-		tf_userinfo_phone.setColumns(12);
-		tf_userinfo_phone.setBounds(299, 146, 433, 21);
-		panel_querybykey.add(tf_userinfo_phone);
-
-		tf_userinfo_license = new JTextField();
-		tf_userinfo_license.setEditable(false);
-		tf_userinfo_license.setColumns(25);
-		tf_userinfo_license.setBounds(299, 179, 433, 21);
-		panel_querybykey.add(tf_userinfo_license);
-
-		tf_userinfo_idcard = new JTextField();
-		tf_userinfo_idcard.setEditable(false);
-		tf_userinfo_idcard.setColumns(10);
-		tf_userinfo_idcard.setBounds(299, 214, 433, 21);
-		panel_querybykey.add(tf_userinfo_idcard);
-
-		JLabel label_4 = new JLabel("");
-		label_4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Main.frame.setVisible(true);
-				dispose();
-			}
-		});
-		label_4.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/return.png")));
-		label_4.setBounds(639, 281, 73, 48);
-		panel_querybykey.add(label_4);
-
-		result_img = new JLabel("");
-		panel_querybykey.add(result_img);
 
 		panel_queryall = new JPanel();
 		panel_queryall.setBounds(0, 131, 742, 357);
@@ -696,16 +696,16 @@ public class ManageUser extends JFrame {
 			err_idcard.setText("*");
 			flag = true;
 		}
-		char[] phonecharr=phone.toCharArray();
-		for(char c:phonecharr) {
-			if (c>'9'||c<'0') {
+		char[] phonecharr = phone.toCharArray();
+		for (char c : phonecharr) {
+			if (c > '9' || c < '0') {
 				err_phone.setText("**");
 				flag = true;
 			}
 		}
-		char[] idcardecharr=idcard.toCharArray();
-		for(char c:idcardecharr) {
-			if (c>'9'||c<'0') {
+		char[] idcardecharr = idcard.toCharArray();
+		for (char c : idcardecharr) {
+			if (c > '9' || c < '0') {
 				err_idcard.setText("**");
 				flag = true;
 			}
@@ -824,7 +824,7 @@ public class ManageUser extends JFrame {
 		table_on_update_panel.getColumnModel().getColumn(2).setPreferredWidth(158);
 		table_on_update_panel.getColumnModel().getColumn(3).setPreferredWidth(205);
 		table_on_update_panel.setModel(defaultTableModel);
-//		table_on_update_panel.update(table_on_update_panel.getGraphics());
+		// table_on_update_panel.update(table_on_update_panel.getGraphics());
 		setUpdateMode();
 	}
 

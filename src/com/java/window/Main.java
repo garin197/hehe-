@@ -56,6 +56,7 @@ public class Main extends JFrame {
 	protected JLabel lbl_relogin2;
 	protected JLabel lbl_relogin1;
 	private ManageUser manageUser = null;
+	private ManageRent manageRent=null;
 	private JLabel label_5;
 
 	/**
@@ -179,15 +180,19 @@ public class Main extends JFrame {
 		menuBar.add(menu_rentback);
 
 		mi_car_rent = new JMenuItem("\u79DF\u8F66");
-		mi_car_rent.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
+		mi_car_rent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (manageRent==null) {
+					manageRent=new ManageRent();
+				}
+				manageRent.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
-		mi_car_rent.setIcon(new ImageIcon(Main.class.getResource("/images/\u79DF\u8F661.png")));
+		
 		mi_car_rent.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
 		menu_rentback.add(mi_car_rent);
+		
 
 		mi_car_back = new JMenuItem("\u8FD8\u8F66");
 		mi_car_back.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
