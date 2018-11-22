@@ -141,10 +141,6 @@ public class ManageUser extends JFrame {
 		panel_deleteuser.setVisible(false);
 		contentPane.setLayout(null);
 
-		panel_updateuser = new JPanel();
-		panel_updateuser.setBounds(0, 131, 742, 357);
-		panel_updateuser.setVisible(false);
-
 		panel_querybykey = new JPanel();
 		panel_querybykey.setBounds(0, 131, 742, 357);
 		panel_querybykey.setVisible(false);
@@ -152,6 +148,131 @@ public class ManageUser extends JFrame {
 		panel_adduser = new JPanel();
 		panel_adduser.setBounds(0, 131, 742, 357);
 		panel_adduser.setVisible(false);
+		
+				panel_updateuser = new JPanel();
+				panel_updateuser.setBounds(0, 131, 742, 357);
+				panel_updateuser.setVisible(false);
+				panel_updateuser.setBackground(Color.WHITE);
+				contentPane.add(panel_updateuser);
+				panel_updateuser.setLayout(null);
+				
+						lblNewLabel_1 = new JLabel("\u4E00\u952E\u4FEE\u6539");
+						lblNewLabel_1.setVisible(false);
+						lblNewLabel_1.setEnabled(false);
+						lblNewLabel_1.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								User user = null;
+								TableModel tableModel = table_on_update_panel.getModel();
+								for (int i = 0; i < allUser.size(); i++) {
+									user = allUser.get(i);
+									if (UpdateFlag[i]) {
+										try {
+											user.setName((String) tableModel.getValueAt(i, 0));
+											user.setPhone((String) tableModel.getValueAt(i, 1));
+											user.setLicense((String) tableModel.getValueAt(i, 2));
+											user.setIDCard((String) tableModel.getValueAt(i, 3));
+											if (!new UserDAOImpl().update(user)) {
+												panel_show_update_fallback2.setVisible(true);
+												table_on_update_panel.setRowSelectionInterval(i, i);
+												Thread thread = new Thread(new Runnable() {
+
+													@Override
+													public void run() {
+														try {
+															Thread.sleep(2000);
+														} catch (InterruptedException e) {
+														}
+														panel_show_update_fallback2.setVisible(false);
+														lblNewLabel_1.setVisible(false);
+													}
+												});
+												thread.start();
+												return;
+											}
+										} catch (Exception e1) {
+										}
+									}
+								}
+								loadUserInfoInUpd();
+								panel_show_update_fallback.setVisible(true);
+								Thread thread = new Thread(new Runnable() {
+
+									@Override
+									public void run() {
+										try {
+											Thread.sleep(2000);
+										} catch (InterruptedException e) {
+										}
+										panel_show_update_fallback.setVisible(false);
+										lblNewLabel_1.setVisible(false);
+									}
+								});
+								thread.start();
+							}
+						});
+						
+								panel_show_update_fallback2 = new JPanel();
+								panel_show_update_fallback2.setBackground(Color.WHITE);
+								panel_show_update_fallback2.setBounds(24, 99, 695, 234);
+								panel_updateuser.add(panel_show_update_fallback2);
+								panel_show_update_fallback2.setVisible(false);
+								panel_show_update_fallback2.setLayout(null);
+								
+										label_9 = new JLabel("");
+										label_9.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u7FFB\u8F66.gif")));
+										label_9.setBounds(10, 10, 390, 205);
+										panel_show_update_fallback2.add(label_9);
+										
+												lblNewLabel_3 = new JLabel("\u4FEE\u6539\u5931\u8D25");
+												lblNewLabel_3.setFont(new Font("华文琥珀", Font.PLAIN, 39));
+												lblNewLabel_3.setBounds(412, 48, 255, 133);
+												panel_show_update_fallback2.add(lblNewLabel_3);
+												
+														panel_show_update_fallback = new JPanel();
+														panel_show_update_fallback.setBackground(Color.WHITE);
+														panel_show_update_fallback.setBounds(24, 99, 695, 235);
+														panel_updateuser.add(panel_show_update_fallback);
+														panel_show_update_fallback.setLayout(null);
+														panel_show_update_fallback.setVisible(false);
+														
+																JLabel lblNewLabel_2 = new JLabel("\u4FEE\u6539\u6210\u529F");
+																lblNewLabel_2.setForeground(Color.LIGHT_GRAY);
+																lblNewLabel_2.setFont(new Font("黑体", Font.BOLD, 39));
+																lblNewLabel_2.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u4FEE\u6539\u6210\u529F.GIF")));
+																lblNewLabel_2.setBounds(10, 10, 685, 200);
+																panel_show_update_fallback.add(lblNewLabel_2);
+																lblNewLabel_1.setBounds(469, 35, 54, 15);
+																panel_updateuser.add(lblNewLabel_1);
+																
+																		label_7 = new JLabel("");
+																		label_7.setIcon(
+																				new ImageIcon(ManageUser.class.getResource("/image/app/\u4FEE\u6539\u7528\u6237\u4FE1\u606F.png")));
+																		label_7.setBounds(10, 10, 250, 55);
+																		panel_updateuser.add(label_7);
+																		
+																				scrollPane_1 = new JScrollPane();
+																				scrollPane_1.setBounds(10, 73, 722, 274);
+																				panel_updateuser.add(scrollPane_1);
+																				
+																						table_on_update_panel = new JTable();
+																						table_on_update_panel.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "\u59D3\u540D",
+																								"\u7535\u8BDD\uFF08\u624B\u673A\uFF09", "\u9A7E\u9A76\u8BC1", "\u8EAB\u4EFD\u8BC1" }));
+																						table_on_update_panel.getColumnModel().getColumn(1).setPreferredWidth(108);
+																						table_on_update_panel.getColumnModel().getColumn(2).setPreferredWidth(158);
+																						table_on_update_panel.getColumnModel().getColumn(3).setPreferredWidth(205);
+																						scrollPane_1.setViewportView(table_on_update_panel);
+																						
+																								label_8 = new JLabel("\u8FD4\u56DE");
+																								label_8.addMouseListener(new MouseAdapter() {
+																									@Override
+																									public void mouseClicked(MouseEvent e) {
+																										Main.frame.setVisible(true);
+																										dispose();
+																									}
+																								});
+																								label_8.setBounds(573, 35, 54, 15);
+																								panel_updateuser.add(label_8);
 		panel_adduser.setBackground(Color.WHITE);
 		contentPane.add(panel_adduser);
 		panel_adduser.setLayout(null);
@@ -380,124 +501,6 @@ public class ManageUser extends JFrame {
 
 		result_img = new JLabel("");
 		panel_querybykey.add(result_img);
-		panel_updateuser.setBackground(Color.WHITE);
-		contentPane.add(panel_updateuser);
-		panel_updateuser.setLayout(null);
-
-		lblNewLabel_1 = new JLabel("\u4E00\u952E\u4FEE\u6539");
-		lblNewLabel_1.setEnabled(false);
-		lblNewLabel_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				User user = null;
-				TableModel tableModel = table_on_update_panel.getModel();
-				for (int i = 0; i < allUser.size(); i++) {
-					user = allUser.get(i);
-					if (UpdateFlag[i]) {
-						try {
-							user.setName((String) tableModel.getValueAt(i, 0));
-							user.setPhone((String) tableModel.getValueAt(i, 1));
-							user.setLicense((String) tableModel.getValueAt(i, 2));
-							user.setIDCard((String) tableModel.getValueAt(i, 3));
-							if (!new UserDAOImpl().update(user)) {
-								panel_show_update_fallback2.setVisible(true);
-								table_on_update_panel.setRowSelectionInterval(i, i);
-								Thread thread = new Thread(new Runnable() {
-
-									@Override
-									public void run() {
-										try {
-											Thread.sleep(2000);
-										} catch (InterruptedException e) {
-										}
-										panel_show_update_fallback2.setVisible(false);
-									}
-								});
-								thread.start();
-								return;
-							}
-						} catch (Exception e1) {
-						}
-					}
-				}
-				loadUserInfoInUpd();
-				panel_show_update_fallback.setVisible(true);
-				Thread thread = new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						try {
-							Thread.sleep(2000);
-						} catch (InterruptedException e) {
-						}
-						panel_show_update_fallback.setVisible(false);
-					}
-				});
-				thread.start();
-			}
-		});
-
-		panel_show_update_fallback2 = new JPanel();
-		panel_show_update_fallback2.setBackground(Color.WHITE);
-		panel_show_update_fallback2.setBounds(24, 99, 695, 234);
-		panel_updateuser.add(panel_show_update_fallback2);
-		panel_show_update_fallback2.setVisible(false);
-		panel_show_update_fallback2.setLayout(null);
-
-		label_9 = new JLabel("");
-		label_9.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u7FFB\u8F66.gif")));
-		label_9.setBounds(10, 10, 390, 205);
-		panel_show_update_fallback2.add(label_9);
-
-		lblNewLabel_3 = new JLabel("\u4FEE\u6539\u5931\u8D25");
-		lblNewLabel_3.setFont(new Font("华文琥珀", Font.PLAIN, 39));
-		lblNewLabel_3.setBounds(412, 48, 255, 133);
-		panel_show_update_fallback2.add(lblNewLabel_3);
-
-		panel_show_update_fallback = new JPanel();
-		panel_show_update_fallback.setBackground(Color.WHITE);
-		panel_show_update_fallback.setBounds(24, 99, 695, 235);
-		panel_updateuser.add(panel_show_update_fallback);
-		panel_show_update_fallback.setLayout(null);
-		panel_show_update_fallback.setVisible(false);
-
-		JLabel lblNewLabel_2 = new JLabel("\u4FEE\u6539\u6210\u529F");
-		lblNewLabel_2.setForeground(Color.LIGHT_GRAY);
-		lblNewLabel_2.setFont(new Font("黑体", Font.BOLD, 39));
-		lblNewLabel_2.setIcon(new ImageIcon(ManageUser.class.getResource("/image/app/\u4FEE\u6539\u6210\u529F.GIF")));
-		lblNewLabel_2.setBounds(10, 10, 685, 200);
-		panel_show_update_fallback.add(lblNewLabel_2);
-		lblNewLabel_1.setBounds(469, 35, 54, 15);
-		panel_updateuser.add(lblNewLabel_1);
-
-		label_7 = new JLabel("");
-		label_7.setIcon(
-				new ImageIcon(ManageUser.class.getResource("/image/app/\u4FEE\u6539\u7528\u6237\u4FE1\u606F.png")));
-		label_7.setBounds(10, 10, 250, 55);
-		panel_updateuser.add(label_7);
-
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 73, 722, 274);
-		panel_updateuser.add(scrollPane_1);
-
-		table_on_update_panel = new JTable();
-		table_on_update_panel.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "\u59D3\u540D",
-				"\u7535\u8BDD\uFF08\u624B\u673A\uFF09", "\u9A7E\u9A76\u8BC1", "\u8EAB\u4EFD\u8BC1" }));
-		table_on_update_panel.getColumnModel().getColumn(1).setPreferredWidth(108);
-		table_on_update_panel.getColumnModel().getColumn(2).setPreferredWidth(158);
-		table_on_update_panel.getColumnModel().getColumn(3).setPreferredWidth(205);
-		scrollPane_1.setViewportView(table_on_update_panel);
-
-		label_8 = new JLabel("\u8FD4\u56DE");
-		label_8.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Main.frame.setVisible(true);
-				dispose();
-			}
-		});
-		label_8.setBounds(573, 35, 54, 15);
-		panel_updateuser.add(label_8);
 		panel_deleteuser.setBackground(Color.WHITE);
 		contentPane.add(panel_deleteuser);
 		panel_deleteuser.setLayout(null);
@@ -835,6 +838,7 @@ public class ManageUser extends JFrame {
 
 			@Override
 			public void tableChanged(TableModelEvent e) {
+				lblNewLabel_1.setVisible(true);
 				int row = e.getFirstRow();
 				if (stringUtil.isEmpty((String) tableModel.getValueAt(row, 0))) {
 					tableModel.setValueAt(allUser.get(row).getName(), row, 0);
