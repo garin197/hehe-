@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO {
 		boolean flag = false;// 删除成功标记
 		if (connection != null) {
 			String sql = "delete from t_users where userID=? and IDCard=?";
-			PreparedStatement preparedStatement = (PreparedStatement) connection.clientPrepareStatement(sql);
+			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
 			preparedStatement.setInt(1, user.getUserID());
 			preparedStatement.setString(2, user.getIDCard());
 			preparedStatement.executeUpdate();
@@ -92,10 +92,10 @@ public class UserDAOImpl implements UserDAO {
 			PreparedStatement preparedStatement=null;
 			if (user.getCarID()==0) {
 				String sql = "insert into t_users(name,phone,license,IDCard) values(?,?,?,?)";
-				preparedStatement = (PreparedStatement) connection.clientPrepareStatement(sql);
+				preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
 			}else {
 				String sql = "insert into t_users(name,phone,license,IDCard,carID) values(?,?,?,?,?)";
-				preparedStatement = (PreparedStatement) connection.clientPrepareStatement(sql);
+				preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
 				preparedStatement.setInt(5, user.getCarID());
 			}
 			preparedStatement.setString(1, user.getName());
@@ -115,7 +115,7 @@ public class UserDAOImpl implements UserDAO {
 		boolean flag = false;// 成功标记
 		if (connection != null) {
 			String sql = "update t_users set name=?,phone=?,license=?,IDCard=?,carID=? where userID=?";
-			PreparedStatement preparedStatement = (PreparedStatement) connection.clientPrepareStatement(sql);
+			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getPhone());
 			preparedStatement.setString(3, user.getLicense());
