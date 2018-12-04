@@ -71,25 +71,37 @@ public class ContractDAOImpl implements ContractDAO {
 	}
 
 	@Override
-	public void delContract(Contract contract) throws Exception {
+	public int delContract(int  license) throws Exception {
 		connection = new DatabaseManagerCtrl().getConnection();
 		if (connection != null) {
-
-//			String sql = "delete from t_contract(carID,name,license,time,rent,userID) values(?,?,?,?,?,?)";
-//			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
-//			preparedStatement.setInt(1, contract.getCarID());
-//			preparedStatement.setString(2, contract.getName());
-//			preparedStatement.setString(3, contract.getLicense());
-//			preparedStatement.setDate(4, new java.sql.Date(new Date().getTime()));
-//			preparedStatement.setDouble(5, contract.getRent());
-//			preparedStatement.setInt(6, contract.getUserID());
-//			preparedStatement.executeUpdate();
-		}
-	}
+			String sql = "delete from t_contract where t_contract.license ="+ license;
+			return connection.createStatement().executeUpdate(sql);
+		}else
+		return 0;
+	} 
 
 	@Override
 	public List queryByLicense(String license) throws Exception {
 		
-		return null;
+		List list = null;
+//		int licen = Integer.parseInt(license);
+		connection = new DatabaseManagerCtrl().getConnection();
+		if (connection != null) {
+			String sql = "select carName,t_contract.name,t_contract.license,t_contract.time,t_contract.rent from t_car,t_contract where t_car.carID=t_contract.carID and t_contract.license like '%"+ license+ "%'";
+			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			list = new ArrayList<SelectOnContractModel>();
+			while (rs.next()) {
+				SelectOnContractModel s = new SelectOnContractModel();
+				s.setCarName(rs.getString(1));
+				s.setName(rs.getString(2));
+				s.setLicense(rs.getString(3));
+				s.setDate(rs.getDate(4));
+				s.setRent(rs.getInt(5));
+				list.add(s);
+			}
+		}
+		connection.close();
+		return list;
 	}
 }

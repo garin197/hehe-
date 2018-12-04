@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -45,6 +46,7 @@ public class CarBack extends JFrame {
 	public static Car car;
 	private JLabel lb_queryByLicense;
 	private JTextField tf_queryByLicense;
+	private Object[][] results;
 
 	private Object[][] getResult(List list) {
 		Object[][] results = new Object[list.size()][heads.length];
@@ -90,11 +92,46 @@ public class CarBack extends JFrame {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				license = tf_queryByLicense.getText();
-
-			
-
+				
+				if(license == null){
+				
+					try {
+						results = getResult(contractDAOImpl.queryall());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					table = new JTable(results, heads);
+				}else{
 				// 执行查询操作，将查询结果显示到界面
-				Object[][] results = null;
+				 results = null;
+				try {
+					results = getResult(contractDAOImpl.queryByLicense(license));
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				DefaultTableModel model = new DefaultTableModel();
+				table.setModel(model);
+				model.setDataVector(results, heads);
+				}
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				license = tf_queryByLicense.getText();
+
+				if(license == null){
+					
+					try {
+						results = getResult(contractDAOImpl.queryall());
+					} catch (Exception e1) {
+						// TODO 自动生成的 catch 块
+						e1.printStackTrace();
+					}
+					table = new JTable(results, heads);
+				}else{
+					
+				// 执行查询操作，将查询结果显示到界面
+				results = null;
 				try {
 					results = getResult(contractDAOImpl.queryByLicense(license));
 				} catch (Exception e1) {
@@ -104,13 +141,7 @@ public class CarBack extends JFrame {
 				DefaultTableModel model = new DefaultTableModel();
 				table.setModel(model);
 				model.setDataVector(results, heads);
-			
-			}
-			
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				// TODO 自动生成的方法存根
-				
+				}
 			}
 			
 			@Override
@@ -131,7 +162,7 @@ public class CarBack extends JFrame {
 		final JScrollPane scrollPane = new JScrollPane();
 		panel_table.add(scrollPane);
 
-		Object[][] results = getResult(contractDAOImpl.queryall());
+		results = getResult(contractDAOImpl.queryall());
 		table = new JTable(results, heads);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPane.setViewportView(table);
@@ -157,7 +188,7 @@ public class CarBack extends JFrame {
 		btn_update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					btn_updateActionPerformed(e);
+					btn_delActionPerformed(e);
 				} catch (Exception e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
@@ -173,8 +204,20 @@ public class CarBack extends JFrame {
 		setVisible(true);
 	}
 
-	protected void btn_updateActionPerformed(ActionEvent e) throws Exception {
+	protected void btn_delActionPerformed(ActionEvent e) throws Exception {
+		int fin = 0;
+		int i = table.getSelectedRow();
+		int license = Integer.parseInt((String) table.getValueAt(i, 2));
 		
+		fin = contractDAOImpl.delContract(license);
+		
+		if (fin ==1 ) {
+			JOptionPane.showMessageDialog(null, "还车成功");
+			dispose();
+			Main.frame.setVisible(true);
+		}else{
+			JOptionPane.showMessageDialog(null, "还车失败");
+		}
 	
 		
 		

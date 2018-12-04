@@ -188,9 +188,6 @@ public class CarAdd extends JFrame {
 		int number = Integer.parseInt(tf_car_number.getText());
 		
 		String sql = "insert into t_car(rent,carName,brank,type,carInfo,number) values('"
-//				String sql = "insert into t_car(carId,rent,carName,brank,type,carInfo,number) values('"
-//				+ carId
-//				+ "','"
 				+ rent
 				+ "','"
 				+ carName
