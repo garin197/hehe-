@@ -2,8 +2,6 @@ package com.java.dao;
 
 import java.util.List;
 
-import org.omg.CORBA.ExceptionList;
-
 import com.java.model.Car;
 
 public interface CarDAO {
@@ -17,5 +15,12 @@ public interface CarDAO {
 	
 	public List queryByKey(String key)throws Exception;
 	
-	public void update(Car car)throws Exception;
+	public List queryByKey(String key1,String key2)throws Exception;
+	
+	public boolean update(Car car)throws Exception;
+	
+	public int delete(int carID)throws Exception;
+	public   int insert(String sql)throws Exception ;
+	
+	
 }

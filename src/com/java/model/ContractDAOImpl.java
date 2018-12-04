@@ -52,4 +52,44 @@ public class ContractDAOImpl implements ContractDAO {
 		connection.close();
 		return list;
 	}
+	@Override
+	public int exist_carId_in_contract(int carID) throws Exception {
+		int exist = 0;
+		connection = new DatabaseManagerCtrl().getConnection();
+		if (connection != null) {
+			String sql = "select * from t_contract where t_contract.carID " + " = " + carID ;
+			ResultSet i = connection.createStatement().executeQuery(sql);
+			if(i.next()){
+				exist = 1;
+			}
+			connection.close();
+			return exist;
+		} else {
+			connection.close();
+			return 0;
+		}
+	}
+
+	@Override
+	public void delContract(Contract contract) throws Exception {
+		connection = new DatabaseManagerCtrl().getConnection();
+		if (connection != null) {
+
+//			String sql = "delete from t_contract(carID,name,license,time,rent,userID) values(?,?,?,?,?,?)";
+//			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
+//			preparedStatement.setInt(1, contract.getCarID());
+//			preparedStatement.setString(2, contract.getName());
+//			preparedStatement.setString(3, contract.getLicense());
+//			preparedStatement.setDate(4, new java.sql.Date(new Date().getTime()));
+//			preparedStatement.setDouble(5, contract.getRent());
+//			preparedStatement.setInt(6, contract.getUserID());
+//			preparedStatement.executeUpdate();
+		}
+	}
+
+	@Override
+	public List queryByLicense(String license) throws Exception {
+		
+		return null;
+	}
 }

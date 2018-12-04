@@ -3,12 +3,12 @@ package com.java.window;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.naming.ldap.HasControls;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,7 +18,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.Toolkit;
 
 public class Main extends JFrame {
 
@@ -54,7 +53,8 @@ public class Main extends JFrame {
 	private JPanel panel_welcome;
 	private JLabel label_3;
 	protected JLabel lbl_relogin2;
-	protected JLabel lbl_relogin1;
+	protected JLabel lbl_relogin1;	
+	private ManageUser manageCar = null;
 	private ManageUser manageUser = null;
 	private ManageRent manageRent=null;
 	private JLabel label_5;
@@ -107,10 +107,30 @@ public class Main extends JFrame {
 
 		mi_car_del = new JMenuItem("\u8F66\u578B\u5220\u9664");
 		mi_car_del.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
+		mi_car_del.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					mi_car_delActionPerformed(e);
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+			}
+		});
 		menu_car_manage.add(mi_car_del);
 
 		mi_car_update = new JMenuItem("\u8F66\u578B\u4FEE\u6539");
 		mi_car_update.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
+		mi_car_update.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mi_car_updateActionPerformed(e);
+				
+			}
+		});
 		menu_car_manage.add(mi_car_update);
 
 		menu_client_manage = new JMenu("\u5BA2\u6237\u7BA1\u7406");
@@ -196,6 +216,13 @@ public class Main extends JFrame {
 
 		mi_car_back = new JMenuItem("\u8FD8\u8F66");
 		mi_car_back.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
+		mi_car_back.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mi_car_backActionPerformed(e);
+			}
+		});
 		menu_rentback.add(mi_car_back);
 
 		menu_info_query = new JMenu("\u4FE1\u606F\u67E5\u8BE2");
@@ -205,6 +232,14 @@ public class Main extends JFrame {
 		mi_car_info = new JMenuItem("\u8F66\u578B\u67E5\u8BE2");
 		mi_car_info.setIcon(new ImageIcon("E:\\ChromeDownload\\Add_16.382252559727px_1130653_easyicon.net.png"));
 		mi_car_info.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
+		mi_car_info.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mi_car_infoActionPerformed(e);
+				
+			}
+		});
 		menu_info_query.add(mi_car_info);
 
 		/**
@@ -350,9 +385,47 @@ public class Main extends JFrame {
 		frame.setVisible(true);
 	}
 
+	protected void mi_car_backActionPerformed(ActionEvent e) {
+		
+		try {
+			(new CarBack()).setVisible(true);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		frame.setVisible(false);
+		
+	}
+
+	protected void mi_car_updateActionPerformed(ActionEvent e) {
+		try {
+			(new CarUpdate()).setVisible(true);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		frame.setVisible(false);
+		
+	}
+
+	protected void mi_car_delActionPerformed(ActionEvent e) throws Exception {
+		(new CarDelete()).setVisible(true);
+		frame.setVisible(false);
+	}
+
+	protected void mi_car_infoActionPerformed(ActionEvent e) {
+		try {
+			(new CarQuery()).setVisible(true);
+		} catch (Exception e1) {
+		
+			e1.printStackTrace();
+		}
+		frame.setVisible(false);
+		
+	}
+
 	private void mi_car_addActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		new CarAdd();
+
+		(new CarAdd()).setVisible(true);
+		frame.setVisible(false);
 	}
 
 	public void visterlogin(int flag) {

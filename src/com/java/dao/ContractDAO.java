@@ -2,11 +2,12 @@ package com.java.dao;
 
 import java.util.List;
 
-import org.ietf.jgss.Oid;
-
 import com.java.model.Contract;
 
 public interface ContractDAO {
 	public void addContract(Contract contract)throws Exception;
+	public void delContract(Contract contract) throws Exception;
 	public List queryall()throws Exception;
+	public List queryByLicense(String license) throws Exception;
+	public int exist_carId_in_contract(int carID) throws Exception;
 }
