@@ -310,6 +310,7 @@ public class CarUpdate_change extends JFrame {
 			}
 			if(flag){
 				JOptionPane.showMessageDialog(null, "保存成功！");
+				this.dispose();
 			}else{
 				JOptionPane.showMessageDialog(null, "保存失败，请重试！");
 				

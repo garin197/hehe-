@@ -1,6 +1,7 @@
 package com.java.window;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
@@ -19,10 +20,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.java.mainView.CustSkinPanel;
 import com.java.model.Car;
 import com.java.model.CarDAOImpl;;
 
-public class CarUpdate extends JFrame {
+public class CarUpdate extends JPanel {
 	CarDAOImpl carDAOImpl = new CarDAOImpl();
 	ManageRent manageRent = new ManageRent();
 	private JTable table;
@@ -32,7 +34,6 @@ public class CarUpdate extends JFrame {
 	private JLabel lb_car_number;
 	private JComboBox cb_car_number;
 	private JPanel panel_table;
-	private JPanel panel_close;
 	private JButton button_1;
 	private JLabel lb_car_brank;
 	private JPanel panel_query;
@@ -61,14 +62,14 @@ public class CarUpdate extends JFrame {
 
 	public CarUpdate() throws Exception {
 
-		super();
+//		super();
 		final BorderLayout borderLayout = new BorderLayout();
-		getContentPane().setLayout(borderLayout);
-		setTitle("\u8F66\u8F86\u4FE1\u606F\u4FEE\u6539");
-		setBounds(100, 100, 593, 406);
+		this.setLayout(borderLayout);
+//		setTitle("\u8F66\u8F86\u4FE1\u606F\u4FEE\u6539");
+		this.setPreferredSize(new Dimension(740, 475));
 
 		panel_query = new JPanel();
-		getContentPane().add(panel_query, BorderLayout.NORTH);
+		this.add(panel_query, BorderLayout.NORTH);
 
 		panel_query.setLayout(new GridLayout(1, 3));
 		lb_car_brank = new JLabel("\u8F66\u8F86\u54C1\u724C\uFF1A");
@@ -169,13 +170,34 @@ public class CarUpdate extends JFrame {
 			}
 		});
 		panel_query.add(cb_car_number);
+		
+		//		button_1 = new JButton();
+		//		button_1.addActionListener(new ActionListener() {
+		//			public void actionPerformed(final ActionEvent e) {
+		//				dispose();
+		//				Main.frame.setVisible(true);
+		//			}
+		//		});
+		
+				btn_update = new JButton("\u4FEE\u6539\u9009\u4E2D\u8F66\u578B");
+				panel_query.add(btn_update);
+				btn_update.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							btn_updateActionPerformed(e);
+						} catch (Exception e1) {
+							// TODO 自动生成的 catch 块
+							e1.printStackTrace();
+						}
+					}
+				});
 
 		panel_table = new JPanel();
 		final BorderLayout bl_panel_table = new BorderLayout();
 		bl_panel_table.setVgap(5);
 		panel_table.setLayout(bl_panel_table);
 		panel_table.setBorder(new EmptyBorder(5, 10, 5, 10));
-		getContentPane().add(panel_table);
+		this.add(panel_table,BorderLayout.CENTER);
 
 		final JScrollPane scrollPane = new JScrollPane();
 		panel_table.add(scrollPane);
@@ -184,42 +206,12 @@ public class CarUpdate extends JFrame {
 		table = new JTable(results, heads);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPane.setViewportView(table);
+//		button_1.setText("\u8FD4\u56DE");
+//		panel_close.add(button_1);
 
-		panel_close = new JPanel();
-		panel_close.setBorder(new LineBorder(SystemColor.activeCaptionBorder, 1, true));
-		getContentPane().add(panel_close, BorderLayout.SOUTH);
-		final FlowLayout fl_panel_close = new FlowLayout();
-		fl_panel_close.setVgap(2);
-		fl_panel_close.setHgap(10);
-		fl_panel_close.setAlignment(FlowLayout.RIGHT);
-		panel_close.setLayout(fl_panel_close);
-
-		button_1 = new JButton();
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent e) {
-				dispose();
-				Main.frame.setVisible(true);
-			}
-		});
-
-		btn_update = new JButton("\u786E\u8BA4\u4FEE\u6539");
-		btn_update.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					btn_updateActionPerformed(e);
-				} catch (Exception e1) {
-					// TODO 自动生成的 catch 块
-					e1.printStackTrace();
-				}
-			}
-		});
-		panel_close.add(btn_update);
-		button_1.setText("\u8FD4\u56DE");
-		panel_close.add(button_1);
-
-		setSize(564, 425);
-		setLocationRelativeTo(getOwner());
-		setVisible(true);
+//		setSize(564, 425);
+//		setLocationRelativeTo(getOwner());
+//		setVisible(true);
 	}
 
 	protected void btn_updateActionPerformed(ActionEvent e) throws Exception {

@@ -1,6 +1,7 @@
 package com.java.window;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
@@ -30,15 +31,13 @@ import com.java.model.ContractDAOImpl;
 import com.java.model.SelectOnContractModel;
 
 
-public class CarBack extends JFrame {
+public class CarBack extends JPanel {
 	CarDAOImpl carDAOImpl = new CarDAOImpl();
 	ManageRent manageRent = new ManageRent();
 	private JTable table;
 
 	private String[] heads = { "车名", "客户姓名", "驾驶证", "合同日期", "租金" };
 	private JPanel panel_table;
-	private JPanel panel_close;
-	private JButton btn_close;
 	private JPanel panel_query;
 	private JButton btn_update;
 	private ContractDAOImpl contractDAOImpl = new ContractDAOImpl();
@@ -67,14 +66,15 @@ public class CarBack extends JFrame {
 
 	public CarBack() throws Exception {
 
-		super();
+//		super();
 		final BorderLayout borderLayout = new BorderLayout();
-		getContentPane().setLayout(borderLayout);
-		setTitle("\u8FD8\u8F66");
-		setBounds(100, 100, 593, 406);
+		this.setLayout(borderLayout);
+		this.setPreferredSize(new Dimension(740, 475));
+//		setTitle("\u8FD8\u8F66");
+//		setBounds(100, 100, 593, 406);
 
 		panel_query = new JPanel();
-		getContentPane().add(panel_query, BorderLayout.NORTH);
+		this.add(panel_query, BorderLayout.NORTH);
 
 		panel_query.setLayout(new GridLayout(1, 3));
 		
@@ -151,70 +151,59 @@ public class CarBack extends JFrame {
 			}
 		});
 		panel_query.add(tf_queryByLicense);
+		
+				btn_update = new JButton("\u786E\u8BA4\u8FD8\u8F66");
+				panel_query.add(btn_update);
+				btn_update.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							btn_delActionPerformed(e);
+						} catch (Exception e1) {
+							// TODO 自动生成的 catch 块
+							e1.printStackTrace();
+						}
+					}
+				});
 
 		panel_table = new JPanel();
 		final BorderLayout bl_panel_table = new BorderLayout();
 		bl_panel_table.setVgap(5);
 		panel_table.setLayout(bl_panel_table);
 		panel_table.setBorder(new EmptyBorder(5, 10, 5, 10));
-		getContentPane().add(panel_table);
+		this.add(panel_table);
 
 		final JScrollPane scrollPane = new JScrollPane();
 		panel_table.add(scrollPane);
-
+		
 		results = getResult(contractDAOImpl.queryall());
 		table = new JTable(results, heads);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPane.setViewportView(table);
-
-		panel_close = new JPanel();
-		panel_close.setBorder(new LineBorder(SystemColor.activeCaptionBorder, 1, true));
-		getContentPane().add(panel_close, BorderLayout.SOUTH);
-		final FlowLayout fl_panel_close = new FlowLayout();
-		fl_panel_close.setVgap(2);
-		fl_panel_close.setHgap(10);
-		fl_panel_close.setAlignment(FlowLayout.RIGHT);
-		panel_close.setLayout(fl_panel_close);
-
-		btn_close = new JButton();
-		btn_close.addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent e) {
-				dispose();
-				Main.frame.setVisible(true);
-			}
-		});
-
-		btn_update = new JButton("\u786E\u8BA4\u8FD8\u8F66");
-		btn_update.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					btn_delActionPerformed(e);
-				} catch (Exception e1) {
-					// TODO 自动生成的 catch 块
-					e1.printStackTrace();
-				}
-			}
-		});
-		panel_close.add(btn_update);
-		btn_close.setText("\u8FD4\u56DE");
-		panel_close.add(btn_close);
-
-		setSize(564, 425);
-		setLocationRelativeTo(getOwner());
+//
+//		setSize(564, 425);
+//		setLocationRelativeTo(getOwner());
 		setVisible(true);
 	}
 
 	protected void btn_delActionPerformed(ActionEvent e) throws Exception {
 		int fin = 0;
 		int i = table.getSelectedRow();
-		int license = Integer.parseInt((String) table.getValueAt(i, 2));
+		String license =  (String) table.getValueAt(i, 2);
 		
 		fin = contractDAOImpl.delContract(license);
 		
 		if (fin ==1 ) {
 			JOptionPane.showMessageDialog(null, "还车成功");
-			dispose();
-			Main.frame.setVisible(true);
+			try {
+				results = getResult(contractDAOImpl.queryall());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+//			DefaultTableModel DefaultTableModel
+			table = new JTable(results, heads);
+			update(getGraphics());
+//			this.dispose();
+//			Main.frame.setVisible(true);
 		}else{
 			JOptionPane.showMessageDialog(null, "还车失败");
 		}

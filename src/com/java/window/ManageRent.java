@@ -1,6 +1,7 @@
 package com.java.window;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,13 +33,13 @@ import com.java.model.User;
 import com.java.model.UserDAOImpl;
 import com.java.util.stringUtil;
 
-public class ManageRent extends JFrame {
+public class ManageRent extends JPanel {
 
-	private final String[] columnName = new String[] { "车ID","\u8F66\u540D", "\u54C1\u724C", "\u7C7B\u578B", "\u5EA7\u578B",
-			"\u5269\u4F59" };
+	private final String[] columnName = new String[] { "车ID", "\u8F66\u540D", "\u54C1\u724C", "\u7C7B\u578B",
+			"\u5EA7\u578B", "\u5269\u4F59" };
 	private final String[] columnName_on_orders = new String[] { "\u8F66\u540D", "\u5BA2\u6237\u59D3\u540D",
 			"\u9A7E\u9A76\u8BC1", "\u5408\u540C\u751F\u6548\u65E5\u671F", "\u79DF\u91D1(/\u65E5)" };
-	private JPanel contentPane;
+	public static JPanel contentPane;
 	private JTextField textField_on_rent_name;
 	private JTextField textField_on_rent_phone;
 	private JTextField textField_on_rent_license;
@@ -63,127 +65,137 @@ public class ManageRent extends JFrame {
 	 * Create the frame.
 	 */
 	public ManageRent() {
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setType(Type.POPUP);
-		setBackground(Color.WHITE);
-		setAlwaysOnTop(true);
-		setResizable(false);
-		setBounds(100, 100, 748, 517);
+//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//		setType(Type.POPUP);
+//		setBackground(Color.WHITE);
+//		setAlwaysOnTop(true);
+//		setResizable(false);
+//		setBounds(100, 100, 748, 517);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/app\u56FE\u6807.png")));
-		getContentPane().setBackground(Color.WHITE);
-		getContentPane().setForeground(Color.BLACK);
+//		setContentPane(contentPane);
+//		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/app\u56FE\u6807.png")));
+//		getContentPane().setBackground(Color.WHITE);
+//		getContentPane().setForeground(Color.BLACK);
 		contentPane.setLayout(null);
+		contentPane.setPreferredSize(new Dimension(740, 475));
 
 		panel_on_rent2 = new JPanel();
 		panel_on_rent2.setVisible(false);
-		
-				 panel = new JPanel();
-				 panel.setVisible(false);
-				 
-				 		panel_ALLOrder = new JPanel();
-				 		panel_ALLOrder.setVisible(false);
-				 		panel_ALLOrder.setBackground(Color.WHITE);
-				 		panel_ALLOrder.setBounds(-2, 151, 742, 337);
-				 		contentPane.add(panel_ALLOrder);
-				 		panel_ALLOrder.setLayout(null);
-				 		
-				 				JScrollPane scrollPane_1 = new JScrollPane();
-				 				scrollPane_1.setBounds(10, 10, 722, 317);
-				 				panel_ALLOrder.add(scrollPane_1);
-				 				
-				 						table_show_orders = new JTable();
-				 						table_show_orders.setModel(new DefaultTableModel(new Object[][] {}, columnName_on_orders) {
-				 							boolean[] columnEditables = new boolean[] { false, false, false, false, false };
 
-				 							public boolean isCellEditable(int row, int column) {
-				 								return columnEditables[column];
-				 							}
-				 						});
-				 						table_show_orders.getColumnModel().getColumn(2).setPreferredWidth(143);
-				 						table_show_orders.getColumnModel().getColumn(3).setPreferredWidth(133);
-				 						table_show_orders.getColumnModel().getColumn(4).setPreferredWidth(107);
-				 						scrollPane_1.setViewportView(table_show_orders);
-				 panel.setBackground(Color.WHITE);
-				 panel.setBounds(-2, 151, 742, 337);
-				 contentPane.add(panel);
-				 panel.setLayout(null);
-				 
-				 		JLabel label_7 = new JLabel("\u786E\u8BA4\u8BA2\u5355");
-				 		label_7.setBounds(10, 10, 54, 15);
-				 		panel.add(label_7);
-				 		
-				 				JLabel lblname = new JLabel("New label");
-				 				lblname.setBounds(10, 35, 173, 15);
-				 				panel.add(lblname);
-				 				
-				 						JLabel lblcar = new JLabel("New label");
-				 						lblcar.setBounds(10, 60, 173, 15);
-				 						panel.add(lblcar);
-				 						
-				 								JLabel lbllicense = new JLabel("New label");
-				 								lbllicense.setBounds(10, 85, 173, 15);
-				 								panel.add(lbllicense);
-				 								
-				 										JLabel lblrent = new JLabel("New label");
-				 										lblrent.setBounds(10, 110, 173, 15);
-				 										panel.add(lblrent);
-				 										
-				 												JButton comformbutton = new JButton("\u786E\u8BA4");
-				 												comformbutton.addActionListener(new ActionListener() {
-				 													public void actionPerformed(ActionEvent e) {
-				 														UserDAOImpl userDAOImpl = null;
-				 														User user = currentUser;
-				 														try {
-				 															userDAOImpl = new UserDAOImpl();
-				 															// userDAOImpl.insert(user);
-				 														} catch (Exception e1) {
-				 														}
-				 														try {
-				 															if (userDAOImpl.queryByKeyword(user.getIDCard()) == null) {
-				 																userDAOImpl.insert(user);
-				 																user = userDAOImpl.queryByKeyword(user.getIDCard());
-				 															} else {
-				 																user = userDAOImpl.queryByKeyword(user.getIDCard());
-				 															}
-				 															currentcar.setUserID(user.getUserID());
-				 															currentUser.setUserID(user.getUserID());
+		panel_ALLOrder = new JPanel();
+		panel_ALLOrder.setVisible(false);
 
-				 														} catch (Exception e1) {
-				 														}
-				 														Contract contract = new Contract();
-				 														contract.setCarID(currentcar.getCarID());
-				 														contract.setName(currentUser.getName());
-				 														contract.setLicense(currentUser.getLicense());
-				 														contract.setRent(currentcar.getRent());
-				 														contract.setUserID(currentUser.getUserID());
+		panel = new JPanel();
+		panel.setVisible(false);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(-2, 0, 742, 488);
+		contentPane.add(panel);
+		panel.setLayout(null);
 
-				 														try {
-				 															new ContractDAOImpl().addContract(contract);
-				 															new CarDAOImpl().update(currentcar);
-				 														} catch (Exception e1) {
-				 														}
-				 														new ManageRent().setVisible(true);
-				 														dispose();
-				 													}
-				 												});
-				 												comformbutton.setBounds(639, 304, 93, 23);
-				 												panel.add(comformbutton);
-				 												
-				 														JButton button_1 = new JButton("\u4E0A\u4E00\u6B65");
-				 														button_1.addActionListener(new ActionListener() {
-				 															public void actionPerformed(ActionEvent e) {
-				 																panel.setVisible(false);
-				 																panel_on_rent2.setVisible(true);
-				 															}
-				 														});
-				 														button_1.setBounds(536, 304, 93, 23);
-				 														panel.add(button_1);
+		JLabel label_7 = new JLabel("\u786E\u8BA4\u8BA2\u5355");
+		label_7.setBounds(10, 10, 54, 15);
+		panel.add(label_7);
+
+		JLabel lblname = new JLabel("New label");
+		lblname.setBounds(10, 35, 173, 15);
+		panel.add(lblname);
+
+		JLabel lblcar = new JLabel("New label");
+		lblcar.setBounds(10, 60, 173, 15);
+		panel.add(lblcar);
+
+		JLabel lbllicense = new JLabel("New label");
+		lbllicense.setBounds(10, 85, 173, 15);
+		panel.add(lbllicense);
+
+		JLabel lblrent = new JLabel("New label");
+		lblrent.setBounds(10, 110, 173, 15);
+		panel.add(lblrent);
+
+		JButton comformbutton = new JButton("\u786E\u8BA4");
+		comformbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UserDAOImpl userDAOImpl = null;
+				User user = currentUser;
+				try {
+					userDAOImpl = new UserDAOImpl();
+					// userDAOImpl.insert(user);
+				} catch (Exception e1) {
+				}
+				try {
+					if (userDAOImpl.queryByKeyword(user.getIDCard()) == null) {
+						userDAOImpl.insert(user);
+						
+						user = userDAOImpl.queryByKeyword(user.getIDCard());
+					} else {
+						user = userDAOImpl.queryByKeyword(user.getIDCard());
+					}
+					currentcar.setUserID(user.getUserID());
+					currentUser.setUserID(user.getUserID());
+
+				} catch (Exception e1) {
+				}
+				Contract contract = new Contract();
+				contract.setCarID(currentcar.getCarID());
+				contract.setName(currentUser.getName());
+				contract.setLicense(currentUser.getLicense());
+				contract.setRent(currentcar.getRent());
+				contract.setUserID(currentUser.getUserID());
+
+				try {
+					new ContractDAOImpl().addContract(contract);
+					currentcar.setNumber(currentcar.getNumber()-1);
+					new CarDAOImpl().update(currentcar);
+				} catch (Exception e1) {
+				}
+				JOptionPane.showMessageDialog(null, "预定成功！");
+				panel.setVisible(false);
+				panel_on_rent2.setVisible(false);
+				panel_on_rent.setVisible(true);
+				textField_on_rent_name.setText("");
+				textField_on_rent_idcard.setText("");
+				textField_on_rent_license.setText("");
+				textField_on_rent_phone.setText("");
+//				new ManageRent().setVisible(true);
+			}
+		});
+		comformbutton.setBounds(639, 304, 93, 23);
+		panel.add(comformbutton);
+
+		JButton button_1 = new JButton("\u4E0A\u4E00\u6B65");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setVisible(false);
+				panel_on_rent2.setVisible(true);
+			}
+		});
+		button_1.setBounds(536, 304, 93, 23);
+		panel.add(button_1);
+		panel_ALLOrder.setBackground(Color.WHITE);
+		panel_ALLOrder.setBounds(-2, 0, 742, 488);
+		contentPane.add(panel_ALLOrder);
+		panel_ALLOrder.setLayout(null);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 10, 722, 317);
+		panel_ALLOrder.add(scrollPane_1);
+
+		table_show_orders = new JTable();
+		table_show_orders.setModel(new DefaultTableModel(new Object[][] {}, columnName_on_orders) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_show_orders.getColumnModel().getColumn(2).setPreferredWidth(143);
+		table_show_orders.getColumnModel().getColumn(3).setPreferredWidth(133);
+		table_show_orders.getColumnModel().getColumn(4).setPreferredWidth(107);
+		scrollPane_1.setViewportView(table_show_orders);
 		// panel_on_rent2.
 		panel_on_rent2.setBackground(Color.LIGHT_GRAY);
-		panel_on_rent2.setBounds(0, 151, 742, 337);
+		panel_on_rent2.setBounds(0, 0, 742, 488);
 		contentPane.add(panel_on_rent2);
 		panel_on_rent2.setLayout(null);
 
@@ -202,7 +214,7 @@ public class ManageRent extends JFrame {
 						list = new CarDAOImpl().queryByKey((String) comboBox_blank.getSelectedItem());
 					} catch (Exception e1) {
 					}
-					loadCarInfo(list,table_on_chosecar);
+					loadCarInfo(list, table_on_chosecar);
 				} else {
 					loadCarInfo(table_on_chosecar);
 					comboBox_type.setEnabled(true);
@@ -228,7 +240,7 @@ public class ManageRent extends JFrame {
 						list = new CarDAOImpl().queryByKey((String) comboBox_type.getSelectedItem());
 					} catch (Exception e1) {
 					}
-					loadCarInfo(list,table_on_chosecar);
+					loadCarInfo(list, table_on_chosecar);
 				} else {
 					loadCarInfo(table_on_chosecar);
 					comboBox_blank.setEnabled(true);
@@ -313,45 +325,45 @@ public class ManageRent extends JFrame {
 		panel_on_rent2.add(button);
 
 		panel_on_rent = new JPanel();
-		panel_on_rent.setBounds(0, 151, 740, 337);
+		panel_on_rent.setBounds(0, 0, 740, 488);
 		contentPane.add(panel_on_rent);
 		panel_on_rent.setBackground(Color.WHITE);
 		panel_on_rent.setLayout(null);
 
 		JLabel label_1 = new JLabel("\u59D3\u540D\uFF1A");
-		label_1.setBounds(329, 27, 54, 15);
+		label_1.setBounds(203, 103, 54, 15);
 		panel_on_rent.add(label_1);
 
 		JLabel label_2 = new JLabel("\u9A7E\u9A76\u8BC1\uFF1A");
-		label_2.setBounds(329, 106, 54, 15);
+		label_2.setBounds(203, 182, 54, 15);
 		panel_on_rent.add(label_2);
 
 		JLabel label_3 = new JLabel("\u8EAB\u4EFD\u8BC1\uFF1A");
-		label_3.setBounds(329, 146, 54, 15);
+		label_3.setBounds(203, 222, 54, 15);
 		panel_on_rent.add(label_3);
 
 		JLabel label_4 = new JLabel("\u624B\u673A\uFF1A");
-		label_4.setBounds(329, 66, 54, 15);
+		label_4.setBounds(203, 142, 54, 15);
 		panel_on_rent.add(label_4);
 
 		textField_on_rent_name = new JTextField();
-		textField_on_rent_name.setBounds(372, 24, 186, 21);
+		textField_on_rent_name.setBounds(267, 100, 186, 21);
 		panel_on_rent.add(textField_on_rent_name);
 		textField_on_rent_name.setColumns(10);
 
 		textField_on_rent_phone = new JTextField();
 		textField_on_rent_phone.setColumns(10);
-		textField_on_rent_phone.setBounds(372, 63, 186, 21);
+		textField_on_rent_phone.setBounds(267, 139, 186, 21);
 		panel_on_rent.add(textField_on_rent_phone);
 
 		textField_on_rent_license = new JTextField();
 		textField_on_rent_license.setColumns(10);
-		textField_on_rent_license.setBounds(372, 103, 186, 21);
+		textField_on_rent_license.setBounds(267, 179, 186, 21);
 		panel_on_rent.add(textField_on_rent_license);
 
 		textField_on_rent_idcard = new JTextField();
 		textField_on_rent_idcard.setColumns(10);
-		textField_on_rent_idcard.setBounds(372, 143, 186, 21);
+		textField_on_rent_idcard.setBounds(267, 219, 186, 21);
 		panel_on_rent.add(textField_on_rent_idcard);
 
 		label_err_message = new JLabel("");
@@ -364,31 +376,31 @@ public class ManageRent extends JFrame {
 				vailddate();
 			}
 		});
-		btnNewButton.setBounds(637, 304, 93, 23);
+		btnNewButton.setBounds(283, 338, 93, 23);
 		panel_on_rent.add(btnNewButton);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.decode("#ffff00"));
-		panel_1.setBounds(0, 0, 742, 153);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+//		JPanel panel_1 = new JPanel();
+//		panel_1.setBackground(Color.decode("#ffff00"));
+//		panel_1.setBounds(0, 0, 742, 153);
+//		contentPane.add(panel_1);
+//		panel_1.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("\u8FD4\u56DE");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Main.frame.setVisible(true);
-				dispose();
-			}
-		});
-		lblNewLabel.setBounds(10, 0, 31, 42);
-		panel_1.add(lblNewLabel);
-
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(ManageRent.class.getResource("/image/app/timg.jpg")));
-		label.setBounds(20, 0, 643, 153);
-		panel_1.add(label);
-		setLocationRelativeTo(null);
+//		JLabel lblNewLabel = new JLabel("\u8FD4\u56DE");
+//		lblNewLabel.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				Main.frame.setVisible(true);
+//				dispose();
+//			}
+//		});
+//		lblNewLabel.setBounds(10, 0, 31, 42);
+//		panel_1.add(lblNewLabel);
+//
+//		JLabel label = new JLabel("");
+//		label.setIcon(new ImageIcon(ManageRent.class.getResource("/image/app/timg.jpg")));
+//		label.setBounds(20, 0, 643, 153);
+//		panel_1.add(label);
+//		setLocationRelativeTo(null);
 		initPanel();
 	}
 
@@ -455,9 +467,8 @@ public class ManageRent extends JFrame {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(rowdata, vector_columnName);
 		table.setModel(defaultTableModel);
 	}
-	
 
-	public void loadCarInfo(List<Car> list,JTable table) {
+	public void loadCarInfo(List<Car> list, JTable table) {
 		Vector<String> vector_columnName = new Vector<>();
 		Vector<Object> vector_cells = null;
 		Vector<Vector<Object>> rowdata = new Vector<>();
@@ -514,12 +525,12 @@ public class ManageRent extends JFrame {
 		panel_on_rent2.setVisible(false);
 		panel.setVisible(false);
 		panel_ALLOrder.setVisible(true);
-		List<SelectOnContractModel> list=null;
+		List<SelectOnContractModel> list = null;
 		Vector<String> vector_columnName = new Vector<>();
 		Vector<Object> vector_cells = new Vector<>();
 		Vector<Vector<Object>> rowdata = new Vector<>();
 		try {
-			 list= new ContractDAOImpl().queryall();
+			list = new ContractDAOImpl().queryall();
 		} catch (Exception e) {
 		}
 		if (allCarlist != null) {
@@ -540,6 +551,6 @@ public class ManageRent extends JFrame {
 		}
 		DefaultTableModel defaultTableModel = new DefaultTableModel(rowdata, vector_columnName);
 		table_show_orders.setModel(defaultTableModel);
-		
+
 	}
 }

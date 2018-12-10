@@ -1,8 +1,7 @@
 package com.java.window;
 
-
-
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
@@ -26,7 +25,7 @@ import com.java.model.Car;
 import com.java.model.CarDAOImpl;
 
 
-public class CarQuery extends JFrame {
+public class CarQuery extends JPanel {
 	CarDAOImpl carDAOImpl = new CarDAOImpl();
 	private JTable table;
 
@@ -54,14 +53,15 @@ public class CarQuery extends JFrame {
 
 	public CarQuery() throws Exception {
 		
-		super();
+//		super();
+		this.setPreferredSize(new Dimension(740, 475));
 		final BorderLayout borderLayout = new BorderLayout();
-		getContentPane().setLayout(borderLayout);
-		setTitle("车辆信息查询");
-		setBounds(100, 100, 593, 406);
+		this.setLayout(borderLayout);
+//		setTitle("车辆信息查询");
+//		setBounds(100, 100, 593, 406);
 
 		final JPanel panel_cx = new JPanel();
-		getContentPane().add(panel_cx, BorderLayout.NORTH);
+		this.add(panel_cx, BorderLayout.NORTH);
 
 		panel_cx.setLayout(new GridLayout(1, 3));
 		JLabel lb_name = new JLabel("车辆编号：");
@@ -87,7 +87,7 @@ public class CarQuery extends JFrame {
 		borderLayout_1.setVgap(5);
 		panel_2.setLayout(borderLayout_1);
 		panel_2.setBorder(new EmptyBorder(5, 10, 5, 10));
-		getContentPane().add(panel_2);
+		this.add(panel_2);
 
 		final JScrollPane scrollPane = new JScrollPane();
 		panel_2.add(scrollPane);
@@ -97,28 +97,8 @@ public class CarQuery extends JFrame {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPane.setViewportView(table);
 
-		final JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(SystemColor.activeCaptionBorder, 1,
-				true));
-		getContentPane().add(panel_1, BorderLayout.SOUTH);
-		final FlowLayout flowLayout = new FlowLayout();
-		flowLayout.setVgap(2);
-		flowLayout.setHgap(10);
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		panel_1.setLayout(flowLayout);
-
-		final JButton button_1 = new JButton();
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent e) {
-				dispose();
-				Main.frame.setVisible(true);
-			}
-		});
-		button_1.setText("\u8FD4\u56DE");
-		panel_1.add(button_1);
-
-		setSize(564, 425);
-		setLocationRelativeTo(getOwner());
+//		setSize(564, 425);
+//		setLocationRelativeTo(getOwner());
 		setVisible(true);
 	}
 

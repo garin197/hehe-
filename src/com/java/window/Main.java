@@ -305,17 +305,17 @@ public class Main extends JFrame {
 		label = new JLabel("");
 		label.setBounds(10, 0, 149, 257);
 		label.setIcon(new ImageIcon(Main.class.getResource("/image/app/123.png")));
-		panel_userquery.add(label);
+//		panel_userquery.add(label);
 		panel_userquery.setVisible(false);
 
 		tf_userquery_input = new JTextField();
-		tf_userquery_input.setBounds(169, 96, 225, 27);
+		tf_userquery_input.setBounds(103, 63, 225, 27);
 		panel_userquery.add(tf_userquery_input);
 		tf_userquery_input.setColumns(16);
 
 		lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Main.class.getResource("/image/app/125.png")));
-		lblNewLabel_1.setBounds(165, 53, 229, 33);
+		lblNewLabel_1.setBounds(10, 20, 229, 33);
 		panel_userquery.add(lblNewLabel_1);
 
 		/**

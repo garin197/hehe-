@@ -71,7 +71,7 @@ public class ContractDAOImpl implements ContractDAO {
 	}
 
 	@Override
-	public int delContract(int  license) throws Exception {
+	public int delContract(String  license) throws Exception {
 		connection = new DatabaseManagerCtrl().getConnection();
 		if (connection != null) {
 			String sql = "delete from t_contract where t_contract.license ="+ license;
