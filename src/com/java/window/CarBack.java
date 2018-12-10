@@ -2,15 +2,12 @@ package com.java.window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,7 +16,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -46,6 +42,7 @@ public class CarBack extends JPanel {
 	private JLabel lb_queryByLicense;
 	private JTextField tf_queryByLicense;
 	private Object[][] results;
+	private DefaultTableModel model;
 
 	private Object[][] getResult(List list) {
 		Object[][] results = new Object[list.size()][heads.length];
@@ -88,6 +85,7 @@ public class CarBack extends JPanel {
 		dt.addDocumentListener(new DocumentListener() {
 			
 			private String license;
+			private DefaultTableModel model;
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
@@ -100,7 +98,9 @@ public class CarBack extends JPanel {
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-					table = new JTable(results, heads);
+					model = new DefaultTableModel();
+					table.setModel(model);
+					model.setDataVector(results, heads);
 				}else{
 				// 执行查询操作，将查询结果显示到界面
 				 results = null;
@@ -109,7 +109,7 @@ public class CarBack extends JPanel {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				DefaultTableModel model = new DefaultTableModel();
+				model = new DefaultTableModel();
 				table.setModel(model);
 				model.setDataVector(results, heads);
 				}
@@ -138,7 +138,7 @@ public class CarBack extends JPanel {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
 				}
-				DefaultTableModel model = new DefaultTableModel();
+				model = new DefaultTableModel();
 				table.setModel(model);
 				model.setDataVector(results, heads);
 				}
@@ -176,7 +176,10 @@ public class CarBack extends JPanel {
 		panel_table.add(scrollPane);
 		
 		results = getResult(contractDAOImpl.queryall());
-		table = new JTable(results, heads);
+		table= new JTable();
+		model = new DefaultTableModel();
+		table.setModel(model);
+		model.setDataVector(results, heads);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPane.setViewportView(table);
 //
@@ -199,11 +202,9 @@ public class CarBack extends JPanel {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-//			DefaultTableModel DefaultTableModel
-			table = new JTable(results, heads);
-			update(getGraphics());
-//			this.dispose();
-//			Main.frame.setVisible(true);
+			model = new DefaultTableModel();
+			table.setModel(model);
+			model.setDataVector(results, heads);
 		}else{
 			JOptionPane.showMessageDialog(null, "还车失败");
 		}
