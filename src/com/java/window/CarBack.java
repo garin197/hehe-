@@ -190,12 +190,14 @@ public class CarBack extends JPanel {
 
 	protected void btn_delActionPerformed(ActionEvent e) throws Exception {
 		int fin = 0;
+		boolean change = false;
 		int i = table.getSelectedRow();
 		String license =  (String) table.getValueAt(i, 2);
+		String carName =  (String) table.getValueAt(i, 0);
 		
 		fin = contractDAOImpl.delContract(license);
-		
-		if (fin ==1 ) {
+		change = carDAOImpl.updateByCarName(carName);
+		if (fin ==1&&change ) {
 			JOptionPane.showMessageDialog(null, "还车成功");
 			try {
 				results = getResult(contractDAOImpl.queryall());

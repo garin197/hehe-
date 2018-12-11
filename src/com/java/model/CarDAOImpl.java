@@ -234,4 +234,19 @@ public class CarDAOImpl implements CarDAO {
 		return list;
 	}
 
+	@Override
+	public boolean updateByCarName(String carName) throws Exception {
+		connection = new DatabaseManagerCtrl().getConnection();
+		boolean flag = false;// 成功标记
+		if (connection != null) {
+			String sql = "update t_car set number = number + 1 where carName=?";
+			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
+			preparedStatement.setString(1, carName);
+			preparedStatement.executeUpdate();
+			flag = true;
+			connection.close();
+		}
+		return flag;
+	}
+
 }

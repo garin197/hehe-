@@ -18,6 +18,7 @@ public interface CarDAO {
 	public List queryByKey(String key1,String key2)throws Exception;
 	
 	public boolean update(Car car)throws Exception;
+	public boolean updateByCarName(String carName)throws Exception;
 	
 	public int delete(int carID)throws Exception;
 	public   int insert(String sql)throws Exception ;
